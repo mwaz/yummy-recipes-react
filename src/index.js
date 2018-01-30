@@ -4,6 +4,7 @@ import "./styles/index.css";
 import "./styles/styles.css";
 import Register from "./components/register";
 import Login from "./components/login";
+import PageCounter from "./components/page_counter";
 import Categories from "./components/categories";
 import NavigationBar from "./components/navbar.js";
 import Footer from "./components/footer.js";
@@ -17,7 +18,10 @@ ReactDOM.render(
         <Register />
         <Footer />
         <Login />
+        <Footer />
         <Categories />
+        <PageCounter />
+        <Footer />
     </div>,
     document.getElementById("container")
 );

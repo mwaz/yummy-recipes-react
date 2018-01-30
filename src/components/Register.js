@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
-import background from "../images/recipes.jpg";
 
 class Register extends Component {
     render() {
