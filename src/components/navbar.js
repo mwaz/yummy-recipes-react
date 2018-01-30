@@ -1,5 +1,5 @@
 import React from 'react';
-import "../index.css"
+import "../styles/index.css"
 import {
     Collapse,
     Navbar,
@@ -14,11 +14,6 @@ import {
     DropdownItem
 } from 'reactstrap';
 
-const navigationbar={
-    width:"100%",
-    paddingBottom:"10px",
-    backgroundColor: "#EEEEEE",
-};
 export default class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +30,7 @@ export default class NavigationBar extends React.Component {
     }
     render() {
         return (
-            <div style={navigationbar}>
+            <div className="navigation-bar">
                 <Navbar color="faded" light expand="md">
                     <NavbarBrand href="/">Yummy Recipes</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />

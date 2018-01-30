@@ -1,43 +1,12 @@
 import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
-import "../index.css";
-import background from "../images/recipes.jpg";
-
-const registrationForm = {
-    width: '100%',
-    height: "100vh",
-    paddingRight: "12%",
-    paddingLeft: "52%",
-    paddingTop: "100px",
-    paddingBottom: "50px",
-    backgroundColor: "#000",
-    zIndex: "9999",
-    filter: "opacity(.92)",
-};
-const registration = {
-    width: '100%',
-    height: "vh",
-    backgroundColor: "#ffffff",
-    filter: "opacity(.93)",
-
-};
-
-const backgroundDiv = {
-    width: "100%",
-    color: "white",
-    height: "100vh",
-    backgroundImage: "url(" + background + ")",
-    backgroundRepeat: "repeat -y",
-    zIndex: "-9999",
-
-};
 
 class Login extends Component {
     render() {
         return (
-            <div style={backgroundDiv}>
-                <div style={registration}>
-                    <div style={registrationForm}>
+            <div className="background-div">
+                <div className="background-container">
+                    <div className="background-container-form">
                         <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}>Login  Here </div></strong></center>
                         <Panel header='Register' bsStyle="warning">
                             <FormGroup>
