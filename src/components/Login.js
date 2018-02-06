@@ -1,9 +1,42 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
+import axios from 'axios'
+import Navbar from './navbar'
+import Footer from './footer'
 import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 
 class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+            redirect : '',
+
+        }
+    }
+    handleClick(event){
+        const url = 'http://127.0.0.1:5000/yummy_api/v1/auth';
+        let payload = {
+            'email': this.state.email,
+            'password': this.state.password,
+        }
+        axios.post(url + '/login ', payload)
+            .then((response) => {
+                console.log(response.data.message),
+                    this.setState({ redirect: true })
+            });
+
+        }
+    
     render() {
+        const redirect = this.state.redirect
+        if (redirect) {
+            return <Redirect to={{ pathname: '/categories' }} />
+        }
         return (
+            <div>
+                <Navbar />
             <div className="background-div">
                 <div className="background-container">
                     <div className="background-container-form">
@@ -20,8 +53,8 @@ class Login extends Component {
                     </div>
                 </div>
             </div>
-
-
+            <Footer />
+            </div>
 
         );
     }

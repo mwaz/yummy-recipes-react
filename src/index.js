@@ -19,6 +19,7 @@ ReactDOM.render(
             <Switch>
             <Route exact path="/" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/categories/" component={Categories} />
 
         
         </Switch>
