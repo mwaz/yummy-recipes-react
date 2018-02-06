@@ -29,7 +29,7 @@ export default class Footer extends React.Component {
     }
     render() {
         return (
-            <div className="navigation-bar">
+            <div className="footer">
                 <Navbar color="white" light expand="md">
                   
                         <Nav className="ml-auto" navbar>

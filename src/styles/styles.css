@@ -1,9 +1,13 @@
 .navigation-bar {
     width:100%;
-    padding-bottom:20px;
+    padding-bottom:10px;
     background-color: #FFFFFF;
 }
-
+.footer {
+    width:100%;
+    background-color: #FFFFFF;
+    height: 25px;
+}
 .background-div {
     width: 100%;
     color: white;

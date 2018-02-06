@@ -10,21 +10,19 @@ import Recipes from "./components/recipes";
 import NavigationBar from "./components/navbar.js";
 import Footer from "./components/footer.js";
 import registerServiceWorker from './registerServiceWorker';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(
-    <div>
-        <NavigationBar />
-        <Register />
-        <Footer />
-        <Login />
-        <Categories />
-        <Footer />
-        <Recipes />
-   
-        <Footer />
-    </div>,
+        <Router>
+            <Switch>
+            <Route exact path="/" component={Register} />
+            <Route exact path="/login" component={Login} />
+
+        
+        </Switch>
+   </Router>,
     document.getElementById("container")
 );
 registerServiceWorker();

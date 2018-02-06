@@ -1,12 +1,51 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import NavigationBar from './navbar'
+import Footer from './footer'
+import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 
 class Register extends Component {
     constructor (props) {
         super(props)
+        this.state = {
+            username: '',
+            email: '',
+            password: '',
+            cpassword: '',
+            redirect: '',
+        }
     }
+   handleClick (event){
+       const url = 'http://127.0.0.1:5000/yummy_api/v1/auth';
+       let payload = {
+           'username': this.state.username,
+           'email': this.state.email,
+           'password': this.state.password,
+           'cpassword': this.state.cpassword,
+
+       }
+    if(this.state.password != this.state.cpassword){
+        console.log("Password mismatch");
+        return 0;
+       }
+    
+    axios.post(url + '/register ', payload)
+        .then((response) => {
+            console.log(response.data.message),
+            this.setState({ redirect: true })
+    });
+
+   }
+    
     render() {
+        const redirect = this.state.redirect
+        if (redirect) {
+            return <Redirect to={{ pathname: '/login' }} />
+        }
         return (
+            <div>
+            <NavigationBar />
             <div className="background-div">
                 <div className="background-container">
                     <div className="background-container-form">
@@ -28,6 +67,8 @@ class Register extends Component {
                         </Panel>
                     </div>
                 </div>
+            </div>
+            <Footer />
             </div>
         );
     }
