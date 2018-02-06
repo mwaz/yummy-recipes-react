@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 
 class Register extends Component {
+    constructor (props) {
+        super(props)
+    }
     render() {
         return (
             <div className="background-div">

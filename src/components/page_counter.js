@@ -9,7 +9,7 @@ export default class PageCounter extends Component {
             <ButtonGroup>
                 <Button>1</Button>
                 <Button>2</Button>
-                <DropdownButton title="Dropdown" id="bg-nested-dropdown">
+                <DropdownButton title="Page" id="bg-nested-dropdown">
                     <MenuItem eventKey="1">Page 1</MenuItem>
                     <MenuItem eventKey="2">Page 2</MenuItem>
                 </DropdownButton>

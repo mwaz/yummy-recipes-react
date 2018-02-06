@@ -1,5 +1,4 @@
 import React from 'react';
-import "../styles/index.css"
 import {
     Collapse,
     Navbar,
@@ -14,11 +13,6 @@ import {
     DropdownItem
 } from 'reactstrap';
 
-const navigationbar={
-    width:"100%",
-    paddingBottom:"10px",
-    backgroundColor: "#000"
-};
 export default class Footer extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +29,7 @@ export default class Footer extends React.Component {
     }
     render() {
         return (
-            <div style={navigationbar}>
+            <div className="navigation-bar">
                 <Navbar color="white" light expand="md">
                   
                         <Nav className="ml-auto" navbar>
