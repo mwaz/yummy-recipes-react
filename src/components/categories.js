@@ -1,33 +1,105 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Col,  Button,
-    Modal, ModalHeader, ModalBody, ModalFooter, Row, Breadcrumb, Form} from 'react-bootstrap';
+        Modal,Row, Breadcrumb, Form} from 'react-bootstrap';
+import Navbar from './navbar'
+import Footer from './footer'
+import { Redirect } from 'react-router-dom';
+import {toast, ToastContainer } from 'react-toastify'
 
+const url = 'http://127.0.0.1:5000/yummy_api/v1';
 export default class Categories extends Component {
     constructor(props, context) {
-        super(props, context);
+        super(props, context)
+        this.state = {
+            category_name: '',
+            redirect: false,
+            show: false,
+            categories : []
+        }
 
         this.handleShow = this.handleShow.bind(this);
         this.handleHide = this.handleHide.bind(this);
 
-        this.state = {
-            show: false
-        };
+        
     }
 
-    handleShow() {
+
+    handleShow = () => {
         this.setState({ show: true });
     }
 
-    handleHide() {
+    handleHide = () => {
         this.setState({ show: false });
     }
+    handleAddCategories = () => {
+        let payload = {
+            'category_name': this.state.category_name
+        }
+        axios({
+            url: `${ url }/categories/`,
+            data: payload,
+            method: 'post',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+            .then((response) => {
+                toast.success(`created ${ response.data['category_name']}  category`)
 
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                    console.log(error.response.data['message'])
+                }
+            })
+    }
 
+    handleViewCategories = () => {
+       axios({
+           url: `${url}/categories/`,
+           method: 'get',
+           headers: {
+               Authorization: window.localStorage.getItem('token'),
+               content_type: 'application/json',
+           },
+
+       })
+            .then((response) => {
+                console.log(response.data);
+                this.setState({
+                    categories: response.data.categories,
+                    // next_page: response.data.next_page,
+                    // previous_page: response.data.previous_page,
+                });
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.warning(error.response.data.error);
+                }
+            });
+    }
+    
+    componentWillMount() {
+        this.handleViewCategories();
+    }
     render() {
+    const redirect = this.state.redirect;
+        if (redirect) {
+            return <Redirect to={{ pathname: '/login' }} />;
+        }
         return (
+            
+            <div>
+                <Navbar />
+            <div className="empty-div">
+            </div>
             <div className="categories-parent-background">
                 <div className="categories-container">
                     <div className="grid">
+                        <ToastContainer />
                         <Row>
                             <Col sm="12">
                         <Breadcrumb>
@@ -49,7 +121,7 @@ export default class Categories extends Component {
                         <Row>
                         
                         <Col sm="4">
-                            <Button className="add-categories-btn" onClick={this.handleShow}> <span> Add categories </span> </Button>
+                            <Button className="add-categories-btn" onClick={this.handleShow}> <span> Add recipe category </span> </Button>
                         </Col>
                         </Row>
                         <div>
@@ -69,12 +141,12 @@ export default class Categories extends Component {
                                         for="Category_name">Category Name</label>
                                     <div class="col-md-8">
                                         <input type="text" className="form-control"
-                                            id="Category_nam" placeholder="Category Name" />
+                                                        id="Category_nam" placeholder="Category Name" onChange={(event) => this.setState({ category_name: event.target.value })}/>
                                     </div>
                                 </div>
                                 </Modal.Body>
                             <Modal.Footer>
-                                <Button onClick={this.handleHide} bsStyle="success">Add Category</Button>
+                                <Button onClick={(event => this.handleAddCategories(event))} bsStyle="success">Add Category</Button>
                                 <Button onClick={this.handleHide} bsStyle="danger">Cancel</Button>
                             </Modal.Footer>
                            </Form>
@@ -115,6 +187,10 @@ export default class Categories extends Component {
                     </Row>
                  </div>
                 </div>
+                </div>
+                <div className="empty-div">
+                </div>
+                <Footer />
                 </div>
                 );
     }

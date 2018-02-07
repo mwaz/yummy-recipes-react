@@ -3,7 +3,8 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Navbar from './navbar'
 import Footer from './footer'
-import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
+import { Panel, FormGroup, FormControl, Button} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 
 class Login extends Component {
     constructor(props) {
@@ -21,13 +22,19 @@ class Login extends Component {
             'email': this.state.email,
             'password': this.state.password,
         }
-        axios.post(url + '/login ', payload)
+        axios.post(`${ url }/login`, payload)
             .then((response) => {
-                console.log(response.data.message),
-                    this.setState({ redirect: true })
-            });
+                window.localStorage.setItem('token', response.data.access_token);
 
-        }
+                toast.success(response.data['message'])
+                    this.setState({ redirect: true })
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                }
+            })
+    }
     
     render() {
         const redirect = this.state.redirect
@@ -41,6 +48,8 @@ class Login extends Component {
                 <div className="background-container">
                     <div className="background-container-form">
                         <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}>Login  Here </div></strong></center>
+                        
+                            <ToastContainer />
                         <Panel header='Register' bsStyle="warning">
                             <FormGroup>
                                 <FormControl style={{ backgroundColor: "black", color: "white", filter: "opacity(1)", }} type="email" id="email" placeholder="email" onChange={(event) => this.setState({ email: event.target.value })} />

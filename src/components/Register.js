@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import NavigationBar from './navbar'
-import Footer from './footer'
-import axios from 'axios'
-import { Redirect } from 'react-router-dom'
-import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
+import React, { Component } from 'react';
+import NavigationBar from './navbar';
+import Footer from './footer';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import { Panel, FormGroup, FormControl, Button} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 
-class Register extends Component {
+class Register extends Component {  
     constructor (props) {
         super(props)
         this.state = {
@@ -26,16 +27,22 @@ class Register extends Component {
 
        }
     if(this.state.password != this.state.cpassword){
-        console.log("Password mismatch");
+        toast("Password Mismatch", {type: toast.TYPE.ERROR});
         return 0;
        }
     
-    axios.post(url + '/register ', payload)
-        .then((response) => {
-            console.log(response.data.message),
-            this.setState({ redirect: true })
-    });
+    axios.post(`${ url }/register `, payload)
+           .then((response) => {
+               this.setState({ redirect: true })
+               toast.success(response.data['message'])
+               console.log(response.data['message'])
 
+           })
+           .catch((error) => {
+               if (error.response) {
+                   toast.error(error.response.data['message'])
+               }
+           })
    }
     
     render() {
@@ -46,10 +53,13 @@ class Register extends Component {
         return (
             <div>
             <NavigationBar />
+                
             <div className="background-div">
                 <div className="background-container">
                     <div className="background-container-form">
                         <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}> Register Here </div></strong></center>
+                           
+                        <ToastContainer />
                         <Panel header='Register' bsStyle="warning">
                             <FormGroup>
                                 <FormControl style={{ backgroundColor: "black", color: "white", filter: "opacity(1)", }} type="text" id="username" placeholder="username" onChange={(event) => this.setState({ username: event.target.value })} />
