@@ -27,13 +27,11 @@ export default class Categories extends Component {
         this.handleHide = this.handleHide.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddCategories = this.handleAddCategories.bind(this);
-
-       
-
+        this.editCategory = this.editCategory.bind(this);
         
     }
 
-
+    
     handleShow = () => {
         this.setState({ show: true });
     }
@@ -58,7 +56,8 @@ export default class Categories extends Component {
         .then((response) => {
             toast.success(`created ${ response.data['category_name']}  category`)
             this.getCategories();
-            this.setState({handleAddCategories:false})
+            this.setState({show:false})
+            
 
         })
         .catch((error) => {
@@ -95,6 +94,38 @@ export default class Categories extends Component {
             }
         });
 }
+    editCategory = (event, id) => {
+            id = this.state.id,
+            event.preventDefault();
+
+            const payload = {
+                'category_name': this.state.category_name
+            }
+            axios({
+            url: `${url}/categories/${id}`,
+            method: 'PUT',
+            data: payload,
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+
+            .then((response) => {
+                this.getCategories();
+                toast.error(response.data['message']);
+               
+
+            })
+
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                    // console.log(error.response.data['message'])
+                }
+            })
+
+    }
 
     handleDelete = (event, id) => {
         id = this.state.id,
@@ -196,25 +227,46 @@ export default class Categories extends Component {
                            </Form>
                          </Modal>
                                 <Modal show={this.state.handleDelete} onHide={this.close} className="modal-fade" >
-                                    <Modal.Header onClick={(event => this.setState({ handleDelete: false }))} >
-                                        <Modal.Title> delete this Category  </Modal.Title>
-                                    </Modal.Header>
-                                <Modal.Body>
                                     <form onSubmit={(event => this.handleDelete(event))}>
-                                        <FormGroup>
-                                            <InputGroup>
-                                                <h5>Delete this category? </h5>
-                                                <InputGroup.Button><Button bsStyle="danger" type="submit">delete</Button></InputGroup.Button>
-                                            </InputGroup>
-                                        </FormGroup>
-                                    </form>
-                                </Modal.Body>
+                                    <Modal.Header onClick={(event => this.setState({ handleDelete: false }))} >
+                                       
+                                        <Modal.Title> Are you sure you want to delete this category? </Modal.Title>
+                                    </Modal.Header>
+                                
                                     <Modal.Footer>
-                                        <Button onClick={(event => this.setState({ handleDelete: false }))} >Close</Button>
-                                        
+                                            <Button bsStyle="success" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
+                                        <InputGroup.Button><Button bsStyle="danger" type="submit">delete</Button></InputGroup.Button>
                                     </Modal.Footer>
+                                     </form>
 
                                 </Modal>
+
+                                <Modal show={this.state.editCategory} onHide={this.close} className="modal-fade" >
+                                    <form onSubmit={(event => this.editCategory(event))}>
+                                    <Modal.Header onClick={(event => this.setState({ editCategory: false }))} >
+                                        <Modal.Title> Update Category  </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        
+                                            <div className="form-group">
+                                                <label className="col-md-4 control-label"
+                                                    htmlFor="Category_name">Category Name</label>
+                                                <div className="col-md-8">
+                                                    <input type="text" className="form-control"
+                                                        id="new_Cat" placeholder="Category Name" onChange={(event) => this.setState({ category_name: event.target.value})} />
+                                                </div>
+                                            </div>
+                                       
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                            <InputGroup.Button><Button bsStyle="success" type="submit" onClick={(event => this.setState({ editCategory: false }))}>Update</Button></InputGroup.Button>
+                                            <Button bsStyle="info" onClick={(event => this.setState({ editCategory: false }))}> Cancel</Button>
+
+                                    </Modal.Footer>
+                                    </form>
+
+                                </Modal>
+
                         </div>
                         
                     <Row>
@@ -226,8 +278,8 @@ export default class Categories extends Component {
                                 <div className="card">
                                     <div className="card-title">{categories.category_name}</div>
                                     <div className="card-text">
-                                        <Button bsStyle="info" style={{ width: "70px" }}>Edit</Button>
-                                                    <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id }))}>Delete</Button>
+                                        <Button bsStyle="info" style={{ width: "70px" }} onClick={(event => this.setState({ editCategory: true, id: categories.id }))}>Edit</Button>
+                                        <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id }))}>Delete</Button>
                                     </div>
                                     <Button bsStyle="success">View Recipes</Button>
                                 </div>

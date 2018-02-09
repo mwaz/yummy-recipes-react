@@ -44,7 +44,7 @@ class Register extends Component {  
                }
            })
    }
-    
+      
     render() {
         const redirect = this.state.redirect
         if (redirect) {

@@ -8,7 +8,7 @@ export default class Paginator extends React.Component {
             <Col sm={12}>
             <div className="paginate">
             <Pagination>
-                Previous
+               
                 <PaginationItem>
                                 <PaginationLink previous href="#"/> 
                 </PaginationItem>
@@ -17,7 +17,7 @@ export default class Paginator extends React.Component {
                 <PaginationItem>
                     <PaginationLink next href="#"  Next/>
                 </PaginationItem>
-                Next
+              
             </Pagination>
            
             </div>
