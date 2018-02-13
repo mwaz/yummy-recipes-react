@@ -154,13 +154,30 @@ export default class Categories extends Component {
             })
 
     }
+    getRecipes(event) {
+        axios({
+            url: `${url}/categories/${this.props.match.params.category_id}/recipes/`,
+            method: 'get',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+            .then(response => this.setState({
+                recipes: response.data,
+            }),
+        )
+            .catch((error) => {
+            });
+    }
     componentDidMount() {
         this.getCategories();
     }
     render() {
     const redirect = this.state.redirect;
     const categories = this.state.categories;
-
+    // const getRecipes = this.getRecipes; display the number of recipes in a particular category
+   
     let x = 0;
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
@@ -271,8 +288,7 @@ export default class Categories extends Component {
                         
                     <Row>
                         
-                        {
-                                   
+                        {       
                             categories.map((categories) => (
                                         <Col sm={4} key={categories.id}> <i> {++x}</i>
                                 <div className="card">
@@ -281,7 +297,7 @@ export default class Categories extends Component {
                                         <Button bsStyle="info" style={{ width: "70px" }} onClick={(event => this.setState({ editCategory: true, id: categories.id }))}>Edit</Button>
                                         <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id }))}>Delete</Button>
                                     </div>
-                                    <Button bsStyle="success">View Recipes</Button>
+                                                <Button bsStyle="success" href={`/categories/${categories.id}/recipes/`}>View Recipes </Button>
                                 </div>
                         </Col>
                             ))    
