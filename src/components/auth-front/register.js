@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import NavigationBar from '../common/navbar';
-import Footer from '../common/footer';
+import NavigationBar from '../common/navbar.js';
+import Footer from '../common/footer.js';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Panel, FormGroup, FormControl, Button} from 'react-bootstrap';
+import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 
 class Register extends Component {  
@@ -26,25 +26,24 @@ class Register extends Component {  
            'cpassword': this.state.cpassword,
 
        }
-    if(this.state.password !== this.state.cpassword){
+    if(this.state.password != this.state.cpassword){
         toast("Password Mismatch", {type: toast.TYPE.ERROR});
         return 0;
        }
     
     axios.post(`${ url }/register `, payload)
            .then((response) => {
+               toast.success(response.data.message)
                this.setState({ redirect: true })
-               toast.success(response.data['message'])
-               console.log(response.data['message'])
-
+               console.log(JSON.stringify(response))
            })
            .catch((error) => {
                if (error.response) {
-                   toast.error(error.response.data['message'])
+                   toast.error(error.response.data.error)
                }
            })
    }
-      
+    
     render() {
         const redirect = this.state.redirect
         if (redirect) {
@@ -59,7 +58,7 @@ class Register extends Component {  
                     <div className="background-container-form">
                         <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}> Register Here </div></strong></center>
                            
-                        <ToastContainer />
+                            <ToastContainer />
                         <Panel header='Register' bsStyle="warning">
                             <FormGroup>
                                 <FormControl style={{ backgroundColor: "black", color: "white", filter: "opacity(1)", }} type="text" id="username" placeholder="username" onChange={(event) => this.setState({ username: event.target.value })} />
