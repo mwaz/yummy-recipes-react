@@ -293,20 +293,20 @@ export default class Recipes extends Component {
                                                     htmlFor="recipe_name">Recipe Name</label>
                                                 <div className="col-md-12">
                                                     <input type="text" className="form-control"
-                                                        id="new_Cat" placeholder={this.state.recipe_name} onChange={(event) => this.setState({ recipe_name: event.target.value })} />
+                                                        id="new_Cat" placeholder={this.state.recipe_name} value={this.state.recipe_name } onChange={(event) => this.setState({ recipe_name: event.target.value })} />
                                                 </div>
                                                 <label className="col-md-6 control-label"
                                                     htmlFor="recipe_ingredients">Recipe Ingredients</label>
                                                 <div className="col-md-12">
                                                     <textarea rows="4" cols="50" className="form-control"
-                                                        id="new_Cat" placeholder={this.state.recipe_ingredients} onChange={(event) => this.setState({ recipe_ingredients: event.target.value })}>
+                                                        id="new_Cat" placeholder={this.state.recipe_ingredients} value={this.state.recipe_ingredients} onChange={(event) => this.setState({ recipe_ingredients: event.target.value })}>
                                                     </textarea>
                                                 </div>
                                                 <label className="col-md-6 control-label"
                                                     htmlFor="recipe_methods">Recipe Methods</label>
                                                 <div className="col-md-12">
                                                     <textarea rows="4" cols="50" className="form-control"
-                                                        id="new_Cat" placeholder={this.state.recipe_methods} onChange={(event) => this.setState({ recipe_methods: event.target.value })}>
+                                                        id="new_Cat" placeholder={this.state.recipe_methods} value={this.state.recipe_methods} onChange={(event) => this.setState({ recipe_methods: event.target.value })}>
                                                     </textarea>
                                                 </div>
                                             </div>
