@@ -12,6 +12,7 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 
 export default class NavigationBar extends React.Component {
     constructor(props) {
@@ -19,7 +20,8 @@ export default class NavigationBar extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            redirect:  false
         };
     }
     toggle() {
@@ -27,7 +29,20 @@ export default class NavigationBar extends React.Component {
             isOpen: !this.state.isOpen
         });
     }
+
+    handleLogout = () => {
+        localStorage.removeItem('token');
+        this.setState({
+            redirect: true,
+        });
+    }
     render() {
+        const redirect = this.state.redirect;
+        if (redirect) {
+           return  <Redirect to  {...'/login'} />;
+
+        }
+
         return (
             <div className="navigation-bar">
                 <Navbar color="faded" light expand="md" >
@@ -49,11 +64,11 @@ export default class NavigationBar extends React.Component {
                                     <DropdownItem>
                                         Register
                   </DropdownItem>
-                                    <DropdownItem href="/auth/login/">
+                                    <DropdownItem href="/login/">
                                         Login
                   </DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem href="/auth/logout/"> 
+                                    <DropdownItem onClick={(event => this.handleLogout(event))} > 
                                         Logout
                   </DropdownItem>
                                 </DropdownMenu>
