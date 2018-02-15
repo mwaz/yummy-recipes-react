@@ -108,7 +108,12 @@ export default class Recipes extends Component {
                 }
             });
     }
-    
+    checkRecipes = () =>{
+        const recipes = this.state.recipes;
+        if (recipes < 1){
+            return ("No recipes found in this category")
+        }
+    }
     editRecipe = (event, id) => {
         id = this.state.id,
             event.preventDefault();
@@ -388,6 +393,9 @@ export default class Recipes extends Component {
                                 }
                             
                             </Row>
+                            {
+                                this.checkRecipes() ? <div className="alert alert-danger">No recipes found on this land, kindly add them </div> : <div> </div>
+                            }
                         </div>
                         <Paginater />
                     </div>
