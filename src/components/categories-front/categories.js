@@ -154,6 +154,13 @@ export default class Categories extends Component {
             })
 
     }
+
+    checkCategories = () => {
+        const categories = this.state.categories;
+        if (categories < 1) {
+            return('You currently do not have any recipe categories');
+        }
+    }
     getRecipes(event) {
         axios({
             url: `${url}/categories/${this.props.match.params.category_id}/recipes/`,
@@ -176,12 +183,12 @@ export default class Categories extends Component {
     render() {
     const redirect = this.state.redirect;
     const categories = this.state.categories;
-    // const getRecipes = this.getRecipes; display the number of recipes in a particular category
-   
+    
     let x = 0;
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
         }
+        
         return (
             
             <div>
@@ -211,7 +218,7 @@ export default class Categories extends Component {
                     </Form>
 
                         <Row>
-                        
+                            
                         <Col sm={4}>
                             <Button className="add-categories-btn" onClick={this.handleShow}> <span> Add recipe category </span> </Button>
                         </Col>
@@ -303,6 +310,9 @@ export default class Categories extends Component {
                             ))    
                     }  
                     </Row>
+                            {
+                                this.checkCategories() ? <div className="alert alert-danger">No categories on this land, kindly add them </div> : <div> </div>
+                            }
                  </div>
                  <Paginater />
                 </div>
