@@ -32,12 +32,15 @@ export default class NavigationBar extends React.Component {
 
     handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('name');
         this.setState({
             redirect: true,
         });
     }
+   
     render() {
         const redirect = this.state.redirect;
+        const username = window.localStorage.getItem('name');
         if (redirect) {
            return  <Redirect to  {...'/login'} />;
 
@@ -51,26 +54,43 @@ export default class NavigationBar extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/about/">About</NavLink>
+                                <NavLink href="/">{username ?
+                                `Welcome ${username}` : `Welcome Guest`}</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/categories">Categories</NavLink>
+                            {username ?
+                                "" :
+                                    <NavLink href="/login/">
+                                    Login
+                                    </NavLink>}
+                                </NavItem>
+                            <NavItem>
+                                {username ? 
+                                <NavLink href="/categories">Categories</NavLink> :
+                                    "" }
                             </NavItem>
                             <UncontrolledDropdown nav innavbar="true">
+                                
+                                    
                                 <DropdownToggle nav caret>
                                     Account
-                </DropdownToggle>
+                                </DropdownToggle>
+                                    
                                 <DropdownMenu >
-                                    <DropdownItem>
-                                        Register
-                  </DropdownItem>
-                                    <DropdownItem href="/login/">
-                                        Login
-                  </DropdownItem>
                                     <DropdownItem divider />
+                                    {username ?
                                     <DropdownItem onClick={(event => this.handleLogout(event))} > 
-                                        Logout
-                  </DropdownItem>
+                                            Logout
+                                    </DropdownItem>:
+                                        <DropdownItem href="/" >
+                                            Register
+                                    </DropdownItem>
+                                         }
+
+                                    <DropdownItem onClick={(event => this.handleLogout(event))} >
+                                        Reset Password
+
+                                    </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
