@@ -21,6 +21,7 @@ export default class Categories extends Component {
             next_page: '',
             previous_page: '',
             id: '',
+            search_text: '',
         }
 
         this.handleShow = this.handleShow.bind(this);
@@ -149,34 +150,57 @@ export default class Categories extends Component {
             .catch((error) => {
                 if (error.response) {
                     toast.error(error.response.data['message'])
-                    // console.log(error.response.data['message'])
+                    this.getCategories();
                 }
             })
 
     }
+    
+    searchCategories = (event) => {
+        if (this.state.search_text === "") {
+            toast("No Search item provided", { type: toast.TYPE.ERROR });
+            this.getCategories()
+            return 0;
+        }
+        event.preventDefault();
+        axios({
+            url: `${url}/categories/search/?q=${this.state.search_text}`,
+            method: 'get',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+                
+            },
 
+        })
+       
+            .then((response) => {
+                // console.log(response.data);
+                this.setState({
+                    categories: response.data,
+
+                    // next_page: response.data.next_page,
+                    // previous_page: response.data.previous_page,
+                });
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                    this.getCategories()
+                }
+            });
+
+        
+
+    }
     checkCategories = () => {
         const categories = this.state.categories;
         if (categories < 1) {
             return('You currently do not have any recipe categories');
         }
     }
-    getRecipes(event) {
-        axios({
-            url: `${url}/categories/${this.props.match.params.category_id}/recipes/`,
-            method: 'get',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-        })
-            .then(response => this.setState({
-                recipes: response.data,
-            }),
-        )
-            .catch((error) => {
-            });
-    }
+    
+   
     componentDidMount() {
         this.getCategories();
     }
@@ -184,6 +208,7 @@ export default class Categories extends Component {
     const redirect = this.state.redirect;
     const categories = this.state.categories;
     
+    console.log(this.state.search_text)
     let x = 0;
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
@@ -206,14 +231,16 @@ export default class Categories extends Component {
                         </Breadcrumb>
                         </Col>
                         </Row>
-                    <Form>
+                            <Form onSubmit={(event => this.searchCategories(event))}>
                         <Row style={{float:"right"}} >
+                                   
                             <Col sm={8} >
-                                <input id="mysearch" type="search" className="form-control" placeholder="search categories"/>
+                                        <input id="mysearch" type="search" className="form-control" placeholder="search recipes" onChange={(event) => this.setState({ search_text: event.target.value })}/>
                             </Col>
                             <Col sm={3}>
-                                <Button bsStyle="success">Search </Button>
+                                        <Button bsStyle="success" onClick={this.searchCategories} >Search </Button>
                             </Col>
+                            
                         </Row>
                     </Form>
 
@@ -256,6 +283,9 @@ export default class Categories extends Component {
                                        
                                         <Modal.Title> Are you sure you want to delete this category? </Modal.Title>
                                     </Modal.Header>
+                                    <Modal.Body>
+                                        <center> {this.state.category_name}</center>
+                                        </Modal.Body>
                                 
                                     <Modal.Footer>
                                             <Button bsStyle="success" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
@@ -302,9 +332,9 @@ export default class Categories extends Component {
                                     <div className="card-title">{categories.category_name}</div>
                                     <div className="card-text">
                                         <Button bsStyle="info" style={{ width: "70px" }} onClick={(event => this.setState({ editCategory: true, id: categories.id }))}>Edit</Button>
-                                        <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id }))}>Delete</Button>
+                                        <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id, category_name: categories.category_name }))}>Delete</Button>
                                     </div>
-                                                <Button bsStyle="success" href={`/categories/${categories.id}/recipes/`}>View Recipes </Button>
+                                        <Button bsStyle="success" href={`/categories/${categories.id}/recipes/`}>View Recipes </Button>
                                 </div>
                         </Col>
                             ))    

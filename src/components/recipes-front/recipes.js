@@ -25,6 +25,7 @@ export default class Recipes extends Component {
             next_page: '',
             previous_page: '',
             id: '',
+            search_text: '',
             
         }
 
@@ -114,6 +115,44 @@ export default class Recipes extends Component {
             return ("No recipes found in this category")
         }
     }
+    searchRecipes = (event) => {
+        if (this.state.search_text === "") {
+            toast("No Search item provided", { type: toast.TYPE.ERROR });
+            this.getRecipes();
+            return 0;
+        }
+        event.preventDefault();
+        axios({
+            url: `${url}/recipes/search/?q=${this.state.search_text}`,
+            method: 'get',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+
+            },
+
+        })
+
+            .then((response) => {
+                 console.log(response.data);
+                this.setState({
+                    recipes: response.data,
+
+                    // next_page: response.data.next_page,
+                    // previous_page: response.data.previous_page,
+                });
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                    this.getRecipes();
+                }
+            });
+
+
+
+    }
+
     editRecipe = (event, id) => {
         id = this.state.id,
             event.preventDefault();
@@ -182,7 +221,7 @@ export default class Recipes extends Component {
     render() {
         const redirect = this.state.redirect;
         const recipes = this.state.recipes;
-        console.log(recipes)
+       
         
       
         
@@ -210,13 +249,13 @@ export default class Recipes extends Component {
                                     </Breadcrumb>
                                 </Col>
                             </Row>
-                            <Form>
+                            <Form onSubmit={(event => this.searchRecipes(event))}>
                                 <Row style={{ float: "right" }} >
                                     <Col sm={8} >
-                                        <input id="mysearch" type="search" className="form-control" placeholder="search categories" />
+                                        <input id="mysearch" type="search" className="form-control" placeholder="search categories" onChange={(event) => this.setState({ search_text: event.target.value })} />
                                     </Col>
                                     <Col sm={3}>
-                                        <Button bsStyle="success">Search </Button>
+                                        <Button bsStyle="success" onClick={this.searchRecipes}>Search </Button>
                                     </Col>
                                 </Row>
                             </Form>
