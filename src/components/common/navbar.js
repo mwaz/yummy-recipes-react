@@ -31,8 +31,13 @@ export default class NavigationBar extends React.Component {
     }
 
     handleLogout = () => {
+        window.localStorage.setItem('login', 'false');
         localStorage.removeItem('token');
         localStorage.removeItem('name');
+       
+
+       
+
         this.setState({
             redirect: true,
         });
@@ -48,31 +53,31 @@ export default class NavigationBar extends React.Component {
 
         return (
             <div className="navigation-bar">
-                <Navbar color="faded" light expand="md" >
+                <Navbar  background-color="transparent" background="transparent" border-color="transparent" dark expand="md" >
                     <NavbarBrand href="/">Yummy Recipes</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="/">{username ?
+                            <NavItem color="white">
+                                <NavLink style={{ color: 'white' }} href="/categories">{username ?
                                 `Welcome ${username}` : `Welcome Guest`}</NavLink>
                             </NavItem>
                             <NavItem>
                             {username ?
                                 "" :
-                                    <NavLink href="/login/">
+                                    <NavLink style={{ color: 'white' }} href="/login/">
                                     Login
                                     </NavLink>}
                                 </NavItem>
                             <NavItem>
                                 {username ? 
-                                <NavLink href="/categories">Categories</NavLink> :
+                                    <NavLink href="/categories" style={{ color: 'white' }}>Categories</NavLink> :
                                     "" }
                             </NavItem>
                             <UncontrolledDropdown nav innavbar="true">
                                 
                                     
-                                <DropdownToggle nav caret>
+                                <DropdownToggle nav caret style={{ color: 'white' }}>
                                     Account
                                 </DropdownToggle>
                                     
