@@ -13,6 +13,7 @@ class Login extends Component {
             email: '',
             password: '',
             redirect : '',
+            username: '',
 
         }
     }
@@ -25,9 +26,13 @@ class Login extends Component {
         axios.post(`${ url }/login`, payload)
             .then((response) => {
                 window.localStorage.setItem('token', response.data.access_token);
+                window.localStorage.setItem('name', response.data['user']);
+                window.localStorage.setItem('login', 'true');
+                
+
 
                 toast.success(response.data['message'])
-                    this.setState({ redirect: true })
+                    this.setState({ redirect: true, username: response.data['user'] })
             })
             .catch((error) => {
                 if (error.response) {
@@ -43,22 +48,30 @@ class Login extends Component {
         }
         return (
             <div>
-                <Navbar />
+                
             <div className="background-div">
+                    <Navbar />
                 <div className="background-container">
                     <div className="background-container-form">
                         <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}>Login  Here </div></strong></center>
                         
                             <ToastContainer />
-                        <Panel header='Register' bsStyle="warning">
-                            <FormGroup>
-                                <FormControl style={{ backgroundColor: "black", color: "white", filter: "opacity(1)", }} type="email" id="email" placeholder="email" onChange={(event) => this.setState({ email: event.target.value })} />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl style={{ backgroundColor: "black", color: "white", filter: "opacity(1)", }} type="password" id="password" placeholder="Password" onChange={(event) => this.setState({ password: event.target.value })} />
-                            </FormGroup>
-                            <Button bsStyle="success" onClick={(event => this.handleClick(event))}>Login</Button>
-                        </Panel>
+                            <div className="card">
+                                <div className="card-title">Login </div>
+                                <div className="card-text">
+                                    <Panel header='Register' bsStyle="warning">
+                                        <FormGroup>
+                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="email" id="email" placeholder="email" onChange={(event) => this.setState({ email: event.target.value })} />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="password" id="password" placeholder="Password" onChange={(event) => this.setState({ password: event.target.value })} />
+                                        </FormGroup>
+                                        <Button bsStyle="success" onClick={(event => this.handleClick(event))}>Login</Button>
+                                    </Panel>
+                                     </div>
+                                
+                            </div>
+                        
                     </div>
                 </div>
             </div>
