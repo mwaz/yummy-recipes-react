@@ -4,6 +4,7 @@ const Private = ({ component: Values, ...rest }) => (
     <Route {...rest} render={props => (
         window.localStorage.getItem("token") ? (<Values {...props} />
         ) : (
+            
                 <Redirect to={{
                     pathname: '/login',
                 }} />

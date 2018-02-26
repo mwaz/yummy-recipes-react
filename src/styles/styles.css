@@ -2,10 +2,7 @@
     width:100%;
     padding-bottom:10px;
     color: #ffffff;
-    
-    
 }
-
 .footer {
     width:100%;
     background-color: #FFFFFF;
@@ -79,7 +76,7 @@
 }
 .add-categories-btn {
   border-radius: 6px;
-  background-color: green;
+  background-color: rgb(101, 146, 204);
   border: none;
   color: #FFFFFF;
   text-align: center;

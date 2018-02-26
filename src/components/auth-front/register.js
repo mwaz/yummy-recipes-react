@@ -15,6 +15,10 @@ class Register extends Component {  
             password: '',
             cpassword: '',
             redirect: '',
+            formErrors: { email: '', password: '', cpassword: ''},
+            emailValid: false,
+            passwordValid: false,
+            formValid: false
         }
     }
    handleClick (event){
@@ -39,11 +43,12 @@ class Register extends Component {  
 
                console.log(JSON.stringify(response))
            })
-           .catch((error) => {
-               if (error.response) {
-                   toast.error(error.response.data.error)
-               }
-           })
+        .catch((error) => {
+            if (error.response) {
+                toast.error(error.response.data['message'])
+                // console.log(error.resposne.data.message)
+            }
+        })
    }
     
     render() {
@@ -63,7 +68,7 @@ class Register extends Component {  
                            
                             <ToastContainer />
                         
-                        
+                            
                             <div className="card">
                                 <div className="card-title">Registration </div>
                                 <div className="card-text">
