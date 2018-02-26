@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Col,  Button,
         Modal,Row, Breadcrumb, Form,
-        FormGroup, InputGroup} from 'react-bootstrap';
+        FormGroup, InputGroup, Pagination,
+    } from 'react-bootstrap';
 import Navbar from '../common/navbar'
 import Footer from '../common/footer.js'
 import Paginater from '../common/paginator'
@@ -18,12 +19,14 @@ export default class Categories extends Component {
             redirect: false,
             show: false,
             categories : [],
-            next_page: '',
-            previous_page: '',
             id: '',
             search_text: '',
+            prev_page: 1,
+            next_page: 2,
         }
 
+        this.getPrevPage = this.getPrevPage.bind(this);
+        this.getNextPage = this.getNextPage.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleHide = this.handleHide.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -80,13 +83,10 @@ export default class Categories extends Component {
 
        })
         .then((response) => {
-            // console.log(response.data);
             
             this.setState({
                 categories: response.data,
                 
-                // next_page: response.data.next_page,
-                // previous_page: response.data.previous_page,
             });
         })
         .catch((error) => {
@@ -95,6 +95,70 @@ export default class Categories extends Component {
             }
         });
 }
+
+    getPrevPage(event) {
+        let prev_page = this.state.prev_page
+        let next_page = this.state.next_page
+
+        if(prev_page < 1 || next_page < 1){
+
+            prev_page = 1;
+            next_page = 2;
+        } 
+        console.log(prev_page)
+        event.preventDefault();
+        axios({
+            url: `${url}/categories/?page=${prev_page}`,
+            method: 'GET',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+            .then((response) => {
+                this.setState({
+                    categories: response.data,
+                    next_page: next_page - 1,
+                    prev_page: prev_page - 1 ,
+
+                    // prev_page: response.data.previous_page,
+                    // next_page: response.data.next_Page,
+
+                });
+            })
+            .catch(error =>
+                console.log(JSON.stringify(error)));
+    }
+
+    getNextPage(event) {
+        let next_page = this.state.next_page
+        let prev_page = this.state.prev_page
+        if (prev_page < 1 || next_page < 1) {
+
+            prev_page = 1;
+            next_page = 2;
+        } 
+        event.preventDefault();
+        axios({
+            url: `${url}/categories/?page=${next_page}`,
+            method: 'GET',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+            .then((response) => {
+                this.setState({
+                    categories: response.data,
+                    next_page: next_page  + 1,
+                    prev_page: this.state.next_page
+
+                });
+            })
+            .catch(error =>
+                console.log(JSON.stringify(error)));
+    }
+
     editCategory = (event, id) => {
             id = this.state.id,
             event.preventDefault();
@@ -141,9 +205,15 @@ export default class Categories extends Component {
         })
 
             .then((response) => {
-                this.getCategories();
                 toast.error(response.data['message']);
                 this.setState({handleDelete:false})
+                if (this.state.categories.length === 1) {
+                    this.setState({categories: []})
+                }
+                else {
+                    this.getCategories();
+                }
+            
 
             })
 
@@ -178,9 +248,8 @@ export default class Categories extends Component {
                 // console.log(response.data);
                 this.setState({
                     categories: response.data,
-
-                    // next_page: response.data.next_page,
-                    // previous_page: response.data.previous_page,
+                    next_page: response.data.next_Page,
+                    prev_page: response.data.prev_page,
                 });
             })
             .catch((error) => {
@@ -204,11 +273,16 @@ export default class Categories extends Component {
     componentDidMount() {
         this.getCategories();
     }
+    
     render() {
     const redirect = this.state.redirect;
     const categories = this.state.categories;
-    
-    console.log(this.state.search_text)
+    const prev_page = this.state.prev_page
+    const next_page = this.state.next_page
+    console.log(categories.length)
+    // console.log(next_page)
+    // console.log(prev_page)
+    // console.log(categories)
     let x = 0;
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
@@ -217,9 +291,12 @@ export default class Categories extends Component {
         return (
             
             <div>
+                <div style={{ color: 'white', backgroundColor: '#EEEEEE', background:"grey"}}>
                 <Navbar />
+                </div>
             <div className="empty-div">
             </div>
+               
             <div className="categories-parent-background">
                 <div className="categories-container">
                     <div className="grid">
@@ -238,7 +315,7 @@ export default class Categories extends Component {
                                         <input id="mysearch" type="search" className="form-control" placeholder="search recipes" onChange={(event) => this.setState({ search_text: event.target.value })}/>
                             </Col>
                             <Col sm={3}>
-                                        <Button bsStyle="success" onClick={this.searchCategories} >Search </Button>
+                                        <Button bsStyle="info" onClick={this.searchCategories} >Search </Button>
                             </Col>
                             
                         </Row>
@@ -247,7 +324,7 @@ export default class Categories extends Component {
                         <Row>
                             
                         <Col sm={4}>
-                            <Button className="add-categories-btn" onClick={this.handleShow}> <span> Add recipe category </span> </Button>
+                            <Button bsStyle="info" className="add-categories-btn" onClick={this.handleShow}> <span> Add recipe category </span> </Button>
                         </Col>
                         </Row>
                         <div>
@@ -272,7 +349,7 @@ export default class Categories extends Component {
                                 </div>
                                 </Modal.Body>
                             <Modal.Footer>
-                                            <Button onClick={(event => this.handleAddCategories(event))} bsStyle="success">Add Category</Button>
+                                            <Button onClick={(event => this.handleAddCategories(event))} bsStyle="info">Add Category</Button>
                                 <Button onClick={this.handleHide} bsStyle="danger">Cancel</Button>
                             </Modal.Footer>
                            </Form>
@@ -288,7 +365,7 @@ export default class Categories extends Component {
                                         </Modal.Body>
                                 
                                     <Modal.Footer>
-                                            <Button bsStyle="success" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
+                                            <Button bsStyle="info" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
                                         <InputGroup.Button><Button bsStyle="danger" type="submit">delete</Button></InputGroup.Button>
                                     </Modal.Footer>
                                      </form>
@@ -327,14 +404,15 @@ export default class Categories extends Component {
                         
                         {       
                             categories.map((categories) => (
-                                        <Col sm={4} key={categories.id}> <i> {++x}</i>
+                                        <Col sm={4} key={categories.id}> <i type="hidden"> {++x}</i>
                                 <div className="card">
                                     <div className="card-title">{categories.category_name}</div>
                                     <div className="card-text">
-                                        <Button bsStyle="info" style={{ width: "70px" }} onClick={(event => this.setState({ editCategory: true, id: categories.id }))}>Edit</Button>
-                                        <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id, category_name: categories.category_name }))}>Delete</Button>
+                                        <Button bsStyle="success" style={{ width: "70px" }} onClick={(event => this.setState({ editCategory: true, id: categories.id }))}>Edit</Button>
+                                        <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({handleDelete:true, id: categories.id, category_name: categories.category_name  }))}>Delete</Button>
+                                        
                                     </div>
-                                        <Button bsStyle="success" href={`/categories/${categories.id}/recipes/`}>View Recipes </Button>
+                                        <Button bsStyle="info" href={`/categories/${categories.id}/recipes/`}>View Recipes </Button>
                                 </div>
                         </Col>
                             ))    
@@ -343,8 +421,26 @@ export default class Categories extends Component {
                             {
                                 this.checkCategories() ? <div className="alert alert-danger">No categories on this land, kindly add them </div> : <div> </div>
                             }
+
+                            <Row >
+                                <Col md={5}> </Col>
+                                <center>
+                                    <div>
+                                        <Pagination>
+                                            
+                                            <Button bsStyle='info' onClick={this.getPrevPage}>Previous </Button>
+                                             
+                                            { <div style={{paddingRight: '10px'}}> </div> } 
+                                               
+                                            <Button bsStyle='info' onClick={this.getNextPage} >Next </Button>                           
+                                        </Pagination>
+                                       
+                                    </div>
+                                </center>
+                                </Row>
                  </div>
-                 <Paginater />
+                        
+                        
                 </div>
                 </div>
                 <div className="empty-div">

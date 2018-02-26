@@ -3,11 +3,10 @@ import axios from 'axios';
 import {
     Col, Button,
     Modal, Row, Breadcrumb, Form,
-    FormGroup, InputGroup
+    FormGroup, InputGroup, Pagination
 } from 'react-bootstrap';
 import Navbar from '../common/navbar'
 import Footer from '../common/footer.js'
-import Paginater from '../common/paginator'
 import { Redirect } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify'
 
@@ -22,8 +21,8 @@ export default class Recipes extends Component {
             redirect: false,
             show: false,
             recipes: [],
-            next_page: '',
-            previous_page: '',
+            next_page: 2,
+            prev_page: 1,
             id: '',
             search_text: '',
             
@@ -34,15 +33,14 @@ export default class Recipes extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddRecipes = this.handleAddRecipes.bind(this);
         this.editRecipe = this.editRecipe.bind(this);
-        this.viewRecipe = this.viewRecipe.bind(this);
+        this.getNextPage = this.getNextPage.bind(this);
+        this.getPrevPage = this.getPrevPage.bind(this);
        
         
         
     }
 
-    viewRecipe = () => {
 
-    }
     handleShow = () => {
         this.setState({ show: true });
     }
@@ -95,12 +93,11 @@ export default class Recipes extends Component {
         })
             .then((response) => {
                 // console.log(response.data);
-
                 this.setState({
                     recipes: response.data,
 
-                    // next_page: response.data.next_page,
-                    // previous_page: response.data.previous_page,
+                    next_page: this.state.next_page,
+                    prev_page: this.state.prev_page,
                 });
             })
             .catch((error) => {
@@ -108,6 +105,67 @@ export default class Recipes extends Component {
                     toast.warning(error.response.data.error);
                 }
             });
+    }
+    getPrevPage(event) {
+        let prev_page = this.state.prev_page
+        let next_page = this.state.next_page
+       
+        if (prev_page < 1 || next_page < 1) {
+
+            prev_page = 1;
+            next_page = 2;
+        }
+        event.preventDefault();
+        console.log(prev_page)
+        
+        axios({
+            url: `${url}/categories/${this.props.match.params.category_id}/recipes/?page=${prev_page}`,
+            method: 'GET',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+            .then((response) => {
+                this.setState({
+                    recipes: response.data,
+                    next_page: next_page - 1,
+                    prev_page: prev_page - 1,
+
+                });
+            })
+            .catch(error =>
+                console.log(JSON.stringify(error)));
+    }
+
+    getNextPage(event) {
+        let prev_page = this.state.prev_page
+        let next_page = this.state.next_page
+        event.preventDefault();
+        if (prev_page < 1 || next_page < 1) {
+
+            prev_page = 1;
+            next_page = 2;
+        }
+        console.log(prev_page)
+        axios({
+            url:`${url}/categories/${this.props.match.params.category_id}/recipes/?page=${next_page}`,
+            method: 'GET',
+            headers: {
+                Authorization: window.localStorage.getItem('token'),
+                content_type: 'application/json',
+            },
+        })
+            .then((response) => {
+                this.setState({
+                    recipes: response.data,
+                    next_page: next_page + 1,
+                    prev_page: prev_page + 1,
+
+                });
+            })
+            .catch(error =>
+                console.log(JSON.stringify(error)));
     }
     checkRecipes = () =>{
         const recipes = this.state.recipes;
@@ -122,6 +180,7 @@ export default class Recipes extends Component {
             return 0;
         }
         event.preventDefault();
+       
         axios({
             url: `${url}/recipes/search/?q=${this.state.search_text}`,
             method: 'get',
@@ -137,6 +196,8 @@ export default class Recipes extends Component {
                  console.log(response.data);
                 this.setState({
                     recipes: response.data,
+                    next_page: this.state.next_page,
+                    prev_page: this.state.prev_page,
 
                     // next_page: response.data.next_page,
                     // previous_page: response.data.previous_page,
@@ -201,9 +262,15 @@ export default class Recipes extends Component {
         })
 
             .then((response) => {
-                this.getRecipes();
                 toast.error(response.data['message']);
                 this.setState({ handleDelete: false })
+
+                if (this.state.recipes.length === 1) {
+                    this.setState({ recipes: [] })
+                }
+                else {
+                    this.getRecipes();
+                }
 
             })
 
@@ -234,7 +301,9 @@ export default class Recipes extends Component {
         return (
 
             <div>
-                <Navbar />
+                <div style={{ color: 'white', backgroundColor: '#EEEEEE', background: "grey" }}>
+                    <Navbar />
+                </div>
                 <div className="empty-div">
                 </div>
                 <div className="categories-parent-background">
@@ -244,7 +313,7 @@ export default class Recipes extends Component {
                             <Row>
                                 <Col sm={12}>
                                     <Breadcrumb>
-                                        <Breadcrumb.Item >Categories</Breadcrumb.Item>
+                                        <Breadcrumb.Item  href="/categories" >Categories</Breadcrumb.Item>
                                         <Breadcrumb.Item active href="#" >/Recipes/</Breadcrumb.Item>
                                     </Breadcrumb>
                                 </Col>
@@ -255,7 +324,7 @@ export default class Recipes extends Component {
                                         <input id="mysearch" type="search" className="form-control" placeholder="search categories" onChange={(event) => this.setState({ search_text: event.target.value })} />
                                     </Col>
                                     <Col sm={3}>
-                                        <Button bsStyle="success" onClick={this.searchRecipes}>Search </Button>
+                                        <Button bsStyle="info" onClick={this.searchRecipes}>Search </Button>
                                     </Col>
                                 </Row>
                             </Form>
@@ -263,7 +332,7 @@ export default class Recipes extends Component {
                             <Row>
 
                                 <Col sm={4}>
-                                    <Button className="add-categories-btn" onClick={this.handleShow}> <span> Add recipes </span> </Button>
+                                    <Button bsStyle="info" className="add-categories-btn" onClick={this.handleShow}> <span> Add recipes </span> </Button>
                                 </Col>
                             </Row>
                             <div>
@@ -302,7 +371,7 @@ export default class Recipes extends Component {
                                             </div>
                                         </Modal.Body>
                                         <Modal.Footer>
-                                            <Button onClick={(event => this.handleAddRecipes(event))} bsStyle="success">Add Recipe</Button>
+                                            <Button onClick={(event => this.handleAddRecipes(event))} bsStyle="info">Add Recipe</Button>
                                             <Button onClick={this.handleHide} bsStyle="danger">Cancel</Button>
                                         </Modal.Footer>
                                     </Form>
@@ -318,7 +387,7 @@ export default class Recipes extends Component {
                                             </Modal.Body>
 
                                         <Modal.Footer>
-                                            <Button bsStyle="success" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
+                                            <Button bsStyle="info" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
                                             <InputGroup.Button><Button bsStyle="danger" type="submit">delete</Button></InputGroup.Button>
                                         </Modal.Footer>
                                     </form>
@@ -421,10 +490,10 @@ export default class Recipes extends Component {
                                             <div className="card">
                                                 <div className="card-title">{recipes.recipe_name}</div>
                                                 <div className="card-text">
-                                                    <Button bsStyle="info" style={{ width: "70px" }} onClick={(event => this.setState({ editRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}>Edit</Button>
+                                                    <Button bsStyle="success" style={{ width: "70px" }} onClick={(event => this.setState({ editRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}>Edit</Button>
                                                     <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({ handleDelete: true, id: recipes.id, recipe_name: recipes.recipe_name }))}>Delete</Button>
                                                 </div>
-                                                <Button bsStyle="success" onClick={(event => this.setState({ viewRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}>View Recipes Details</Button>
+                                                <Button bsStyle="info" onClick={(event => this.setState({ viewRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}>View Recipes Details</Button>
                                             </div>
                                         </Col>
                                       
@@ -435,8 +504,24 @@ export default class Recipes extends Component {
                             {
                                 this.checkRecipes() ? <div className="alert alert-danger">No recipes found on this land, kindly add them </div> : <div> </div>
                             }
+                            <Row >
+                                <Col md={5}> </Col>
+                                <center>
+                                    <div>
+                                        <Pagination>
+
+                                            <Button bsStyle='secondary' onClick={this.getPrevPage}>Previous </Button>
+
+                                            {<div style={{ paddingRight: '10px' }}> </div>} 
+
+                                            <Button bsStyle='secondary' onClick={this.getNextPage}>Next </Button>
+                                        </Pagination>
+
+                                    </div>
+                                </center>
+                            </Row>
                         </div>
-                        <Paginater />
+                        
                     </div>
                 </div>
                 <div className="empty-div">
