@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Categories component renders properly without crashing 1`] = `
+exports[`Logins component renders properly without crashing 1`] = `
 <div>
   <div
     className="background-div"
@@ -120,7 +120,7 @@ exports[`Categories component renders properly without crashing 1`] = `
 </div>
 `;
 
-exports[`Categories component should login a user 1`] = `
+exports[`Logins component should login a user 1`] = `
 <div>
   <div
     className="background-div"

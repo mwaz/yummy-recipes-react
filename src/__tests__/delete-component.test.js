@@ -11,4 +11,9 @@ describe('DeleteComponent component', () => {
     it('renders properly without crashing', () => {
         expect(shallowToJson(wrapper)).toMatchSnapshot();
     });
+
+    it('has clickable button', () => {
+        expect(wrapper.find('Button').length).toBe(2)
+    })
+
 });

@@ -59,7 +59,7 @@ exports[`ReusableModal component renders properly without crashing 1`] = `
         >
           <input
             className="form-control"
-            id="new_Cat"
+            id="new_cat"
             type="text"
           />
         </div>

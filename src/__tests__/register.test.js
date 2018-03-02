@@ -60,3 +60,20 @@ describe('Register component', () => {
     });
 
 });
+
+describe('expect registration inputs to change states on target', () => {
+
+    it('should respond to change event and change the state of the Register Component', () => {
+        const wrapper = shallow(<Register />);
+        wrapper.find('#email').simulate('change', { target: { name: 'email', value: 'hey@sema.com' } });
+        wrapper.find('#username').simulate('change', { target: { name: 'username', value: 'known_user' } });
+        wrapper.find('#password').simulate('change', { target: { name: 'password', value: 'password123456' } });
+        wrapper.find('#cpassword').simulate('change', { target: { name: 'cpassword', value: 'password123456' } });
+
+        expect(wrapper.state('email')).toEqual('hey@sema.com');
+        expect(wrapper.state('username')).toEqual('known_user');
+        expect(wrapper.state('password')).toEqual('password123456');
+        expect(wrapper.state('cpassword')).toEqual('password123456');
+    });
+});
+

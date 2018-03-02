@@ -10,7 +10,7 @@ exports[`CardComponent component renders properly without crashing 1`] = `
   <i
     type="hidden"
   >
-     
+      
   </i>
   <div
     className="card"

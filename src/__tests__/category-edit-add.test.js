@@ -11,4 +11,7 @@ describe('ReusableModal component', () => {
     it('renders properly without crashing', () => {
         expect(shallowToJson(wrapper)).toMatchSnapshot();
     });
+
+    
+
 });

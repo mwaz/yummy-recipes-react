@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import Recipes from '../components/recipes-front/recipes';
+import SearchForm from '../components/common/search';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom'; 
 
@@ -13,4 +14,10 @@ describe('Recipes component', () => {
     it('renders properly without crashing', () => {
         expect(shallowToJson(wrapper)).toMatchSnapshot();
     });
+
+    it('simulates a search', () => {
+        expect(wrapper.find('Button').length).toBe(1)
+        
+    } )
+
 });

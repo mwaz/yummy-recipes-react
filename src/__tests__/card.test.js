@@ -11,4 +11,7 @@ describe('CardComponent component', () => {
     it('renders properly without crashing', () => {
         expect(shallowToJson(wrapper)).toMatchSnapshot();
     });
+
+   
+
 });

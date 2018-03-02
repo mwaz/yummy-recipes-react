@@ -11,4 +11,11 @@ describe('SearchForm component', () => {
     it('renders properly without crashing', () => {
         expect(shallowToJson(wrapper)).toMatchSnapshot();
     });
+
+    it('has clickable button', () => {
+        expect(wrapper.find('Button').length).toBe(1)
+        expect(wrapper.find('Button').simulate('click'))
+    })
 });
+
+
