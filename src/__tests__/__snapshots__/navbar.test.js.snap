@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar component renders properly without crashing 1`] = `
+<div
+  className="navigation-bar"
+>
+  <Navbar
+    background="transparent"
+    background-color="transparent"
+    border-color="transparent"
+    dark={true}
+    expand="md"
+    tag="nav"
+  >
+    <NavbarBrand
+      href="#"
+      tag="a"
+    >
+      Yummy Recipes
+    </NavbarBrand>
+    <NavbarToggler
+      onClick={[Function]}
+      tag="button"
+      type="button"
+    />
+    <Collapse
+      appear={false}
+      enter={true}
+      exit={true}
+      in={false}
+      isOpen={false}
+      mountOnEnter={false}
+      navbar={true}
+      onEnter={[Function]}
+      onEntered={[Function]}
+      onEntering={[Function]}
+      onExit={[Function]}
+      onExited={[Function]}
+      onExiting={[Function]}
+      tag="div"
+      timeout={350}
+      unmountOnExit={false}
+    >
+      <Nav
+        className="ml-auto"
+        navbar={true}
+        tag="ul"
+        vertical={false}
+      >
+        <NavItem
+          color="white"
+          tag="li"
+        >
+          <NavLink
+            href="/categories"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+            tag="a"
+          >
+            Welcome Guest
+          </NavLink>
+        </NavItem>
+        <NavItem
+          tag="li"
+        >
+          <NavLink
+            href="/login/"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+            tag="a"
+          >
+            Login
+          </NavLink>
+        </NavItem>
+        <NavItem
+          tag="li"
+        />
+        <UncontrolledDropdown
+          innavbar="true"
+          nav={true}
+        >
+          <DropdownToggle
+            aria-haspopup={true}
+            caret={true}
+            color="secondary"
+            nav={true}
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          >
+            Account
+          </DropdownToggle>
+          <DropdownMenu
+            flip={true}
+            tag="div"
+          >
+            <DropdownItem
+              divider={true}
+              tag="button"
+              toggle={true}
+            />
+            <DropdownItem
+              href="/"
+              tag="button"
+              toggle={true}
+            >
+              Register
+            </DropdownItem>
+            <DropdownItem
+              onClick={[Function]}
+              tag="button"
+              toggle={true}
+            >
+              Reset Password
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+      </Nav>
+    </Collapse>
+  </Navbar>
+  <ToastContainer
+    autoClose={5000}
+    bodyClassName=""
+    className={null}
+    closeButton={
+      <DefaultCloseButton
+        ariaLabel="close"
+      />
+    }
+    closeOnClick={true}
+    hideProgressBar={false}
+    newestOnTop={false}
+    pauseOnHover={true}
+    position="top-right"
+    progressClassName=""
+    style={null}
+    toastClassName=""
+    transition={[Function]}
+  />
+  <Modal
+    animation={true}
+    autoFocus={true}
+    backdrop={true}
+    bsClass="modal"
+    className="modal-fade"
+    dialogComponentClass={[Function]}
+    enforceFocus={true}
+    getItem={[Function]}
+    keyboard={true}
+    location={Object {}}
+    manager={
+      ModalManager {
+        "add": [Function],
+        "containers": Array [],
+        "data": Array [],
+        "handleContainerOverflow": true,
+        "hideSiblingNodes": true,
+        "isTopModal": [Function],
+        "modals": Array [],
+        "remove": [Function],
+      }
+    }
+    navbar={[Function]}
+    onHide={[Function]}
+    renderBackdrop={[Function]}
+    restoreFocus={true}
+    show={false}
+  >
+    <ModalHeader
+      bsClass="modal-header"
+      closeButton={false}
+      closeLabel="Close"
+    >
+      <ModalTitle
+        bsClass="modal-title"
+        componentClass="h4"
+      >
+         Reset Password 
+      </ModalTitle>
+    </ModalHeader>
+    <ModalBody
+      bsClass="modal-body"
+      componentClass="div"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className="col-md-6 control-label"
+          htmlFor="reset_password"
+        >
+          reset password
+        </label>
+        <div
+          className="col-md-12"
+        >
+          <input
+            className="form-control"
+            id="password"
+            onChange={[Function]}
+            placeholder="Password"
+            type="text"
+          />
+        </div>
+        <label
+          className="col-md-6 control-label"
+          htmlFor="confirm_password"
+        >
+          Confirm Password
+        </label>
+        <div
+          className="col-md-12"
+        >
+          <input
+            className="form-control"
+            id="cpassword"
+            onChange={[Function]}
+            placeholder="Confirm Password"
+            type="text"
+          />
+        </div>
+      </div>
+    </ModalBody>
+    <ModalFooter
+      bsClass="modal-footer"
+      componentClass="div"
+    >
+      <InputGroupButton
+        bsClass="input-group-btn"
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="success"
+          disabled={false}
+          onClick={[Function]}
+          type="submit"
+        >
+          Reset Password
+        </Button>
+      </InputGroupButton>
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="info"
+        disabled={false}
+        onClick={[Function]}
+      >
+         Cancel
+      </Button>
+    </ModalFooter>
+  </Modal>
+</div>
+`;

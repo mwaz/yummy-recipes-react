@@ -1,0 +1,487 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register component renders properly without crashing 1`] = `
+<div>
+  <div
+    className="background-div"
+  >
+    <NavigationBar />
+    <div
+      className="background-container"
+    >
+      <div
+        className="background-container-form"
+      >
+        <center>
+          <strong>
+             
+            <div
+              style={
+                Object {
+                  "fontSize": "20px",
+                  "paddingBottom": "1%",
+                }
+              }
+            >
+               Register Here 
+            </div>
+          </strong>
+        </center>
+        <ToastContainer
+          autoClose={5000}
+          bodyClassName=""
+          className={null}
+          closeButton={
+            <DefaultCloseButton
+              ariaLabel="close"
+            />
+          }
+          closeOnClick={true}
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnHover={true}
+          position="top-right"
+          progressClassName=""
+          style={null}
+          toastClassName=""
+          transition={[Function]}
+        />
+        <div
+          className="card"
+        >
+          <div
+            className="card-title"
+          >
+            Registration 
+          </div>
+          <div
+            className="card-text"
+          >
+            <Uncontrolled(Panel)
+              bsStyle="warning"
+              header="Register"
+            >
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="username"
+                  name="username"
+                  onChange={[Function]}
+                  placeholder="username"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="text"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="email"
+                  name="email"
+                  onChange={[Function]}
+                  placeholder="email"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="email"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="password"
+                  name="password"
+                  onChange={[Function]}
+                  placeholder="Password"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="password"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="cpassword"
+                  name="cpassword"
+                  onChange={[Function]}
+                  placeholder="confirm Password"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="password"
+                />
+              </FormGroup>
+              <Button
+                active={false}
+                block={false}
+                bsClass="btn"
+                bsStyle="success"
+                disabled={false}
+                onClick={[Function]}
+                type="submit"
+              >
+                Register
+              </Button>
+            </Uncontrolled(Panel)>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;
+
+exports[`Register component should create a user 1`] = `
+<div>
+  <div
+    className="background-div"
+  >
+    <NavigationBar />
+    <div
+      className="background-container"
+    >
+      <div
+        className="background-container-form"
+      >
+        <center>
+          <strong>
+             
+            <div
+              style={
+                Object {
+                  "fontSize": "20px",
+                  "paddingBottom": "1%",
+                }
+              }
+            >
+               Register Here 
+            </div>
+          </strong>
+        </center>
+        <ToastContainer
+          autoClose={5000}
+          bodyClassName=""
+          className={null}
+          closeButton={
+            <DefaultCloseButton
+              ariaLabel="close"
+            />
+          }
+          closeOnClick={true}
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnHover={true}
+          position="top-right"
+          progressClassName=""
+          style={null}
+          toastClassName=""
+          transition={[Function]}
+        />
+        <div
+          className="card"
+        >
+          <div
+            className="card-title"
+          >
+            Registration 
+          </div>
+          <div
+            className="card-text"
+          >
+            <Uncontrolled(Panel)
+              bsStyle="warning"
+              header="Register"
+            >
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="username"
+                  name="username"
+                  onChange={[Function]}
+                  placeholder="username"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="text"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="email"
+                  name="email"
+                  onChange={[Function]}
+                  placeholder="email"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="email"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="password"
+                  name="password"
+                  onChange={[Function]}
+                  placeholder="Password"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="password"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="cpassword"
+                  name="cpassword"
+                  onChange={[Function]}
+                  placeholder="confirm Password"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="password"
+                />
+              </FormGroup>
+              <Button
+                active={false}
+                block={false}
+                bsClass="btn"
+                bsStyle="success"
+                disabled={false}
+                onClick={[Function]}
+                type="submit"
+              >
+                Register
+              </Button>
+            </Uncontrolled(Panel)>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;
+
+exports[`Register component state changes on input change 1`] = `
+<div>
+  <div
+    className="background-div"
+  >
+    <NavigationBar />
+    <div
+      className="background-container"
+    >
+      <div
+        className="background-container-form"
+      >
+        <center>
+          <strong>
+             
+            <div
+              style={
+                Object {
+                  "fontSize": "20px",
+                  "paddingBottom": "1%",
+                }
+              }
+            >
+               Register Here 
+            </div>
+          </strong>
+        </center>
+        <ToastContainer
+          autoClose={5000}
+          bodyClassName=""
+          className={null}
+          closeButton={
+            <DefaultCloseButton
+              ariaLabel="close"
+            />
+          }
+          closeOnClick={true}
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnHover={true}
+          position="top-right"
+          progressClassName=""
+          style={null}
+          toastClassName=""
+          transition={[Function]}
+        />
+        <div
+          className="card"
+        >
+          <div
+            className="card-title"
+          >
+            Registration 
+          </div>
+          <div
+            className="card-text"
+          >
+            <Uncontrolled(Panel)
+              bsStyle="warning"
+              header="Register"
+            >
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="username"
+                  name="username"
+                  onChange={[Function]}
+                  placeholder="username"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="text"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="email"
+                  name="email"
+                  onChange={[Function]}
+                  placeholder="email"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="email"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="password"
+                  name="password"
+                  onChange={[Function]}
+                  placeholder="Password"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="password"
+                />
+              </FormGroup>
+              <FormGroup
+                bsClass="form-group"
+              >
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  id="cpassword"
+                  name="cpassword"
+                  onChange={[Function]}
+                  placeholder="confirm Password"
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "color": "black",
+                      "filter": "opacity(1)",
+                    }
+                  }
+                  type="password"
+                />
+              </FormGroup>
+              <Button
+                active={false}
+                block={false}
+                bsClass="btn"
+                bsStyle="success"
+                disabled={false}
+                onClick={[Function]}
+                type="submit"
+              >
+                Register
+              </Button>
+            </Uncontrolled(Panel)>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;
