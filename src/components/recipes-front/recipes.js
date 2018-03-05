@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axiosInstance from '../common/axios-calls';
 import {
     Col, Button,
     Modal, Row, Breadcrumb, Form,
     FormGroup, InputGroup, Pagination
 } from 'react-bootstrap';
-import Navbar from '../common/navbar'
-import Footer from '../common/footer.js'
+import Navbar from '../common/navbar';
+import Footer from '../common/footer.js';
+import Paginater from '../common/paginator';
 import { Redirect } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify'
+import RecipeModal from '../common/recipe-modal';
+import SearchForm from '../common/search';
+import DeleteComponent from '../common/delete';
+import CardComponent from '../common/card';
+import BreadCrumbComponent from '../common/breadcrumb'
 
-const url = 'http://127.0.0.1:5000/yummy_api/v1';
 export default class Recipes extends Component {
     constructor(props) {
         super(props)
@@ -25,7 +30,7 @@ export default class Recipes extends Component {
             prev_page: 1,
             id: '',
             search_text: '',
-            
+
         }
 
         this.handleShow = this.handleShow.bind(this);
@@ -35,67 +40,50 @@ export default class Recipes extends Component {
         this.editRecipe = this.editRecipe.bind(this);
         this.getNextPage = this.getNextPage.bind(this);
         this.getPrevPage = this.getPrevPage.bind(this);
-       
-        
-        
     }
 
-
+    //Handles modal opening when adding a recipe
     handleShow = () => {
         this.setState({ show: true });
     }
 
+    //Handles modal closing after adding a recipe
     handleHide = () => {
         this.setState({ show: false });
     }
-    handleAddRecipes = () => {
-        // event.preventDefault();
+
+    //Handles logic for adding a recipe
+    handleAddRecipes = (event) => {
+        event.preventDefault();
         let payload = {
             'recipe_name': this.state.recipe_name,
             'recipe_methods': this.state.recipe_methods,
             'recipe_ingredients': this.state.recipe_ingredients,
         }
-        
-        axios({
-            
-            url: `${url}/categories/${this.props.match.params.category_id}/recipes/`,
-            data: payload,
-            method: 'post',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-        })
+
+        axiosInstance    
+            .post(`/categories/${this.props.match.params.category_id}/recipes/`, payload)
             .then((response) => {
                 toast.success(`created ${response.data['recipe_name']}  recipe`)
                 this.getRecipes();
                 this.setState({ show: false })
-
-
             })
             .catch((error) => {
                 if (error.response) {
                     toast.error(error.response.data['message'])
-                    // console.log(error.response.data['message'])
+                    console.log(error.response.data['message'])
                 }
             })
     }
 
+    //handles logic to  fetch recipes 
     getRecipes = () => {
-        axios({
-            url: `${url}/categories/${this.props.match.params.category_id}/recipes/`,
-            method: 'get',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-
-        })
+            axiosInstance
+            .get(`/categories/${this.props.match.params.category_id}/recipes/`)
             .then((response) => {
                 // console.log(response.data);
                 this.setState({
                     recipes: response.data,
-
                     next_page: this.state.next_page,
                     prev_page: this.state.prev_page,
                 });
@@ -106,10 +94,13 @@ export default class Recipes extends Component {
                 }
             });
     }
+
+    //logic to get previous recipe page for paginated recipes
     getPrevPage(event) {
+        event.preventDefault();
         let prev_page = this.state.prev_page
         let next_page = this.state.next_page
-       
+
         if (prev_page < 1 || next_page < 1) {
 
             prev_page = 1;
@@ -117,15 +108,8 @@ export default class Recipes extends Component {
         }
         event.preventDefault();
         console.log(prev_page)
-        
-        axios({
-            url: `${url}/categories/${this.props.match.params.category_id}/recipes/?page=${prev_page}`,
-            method: 'GET',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-        })
+            axiosInstance
+            .get(`/categories/${this.props.match.params.category_id}/recipes/?page=${prev_page}`)
             .then((response) => {
                 this.setState({
                     recipes: response.data,
@@ -138,7 +122,9 @@ export default class Recipes extends Component {
                 console.log(JSON.stringify(error)));
     }
 
+    //handles logic to get next page of paginated recipes 
     getNextPage(event) {
+        event.preventDefault();
         let prev_page = this.state.prev_page
         let next_page = this.state.next_page
         event.preventDefault();
@@ -147,16 +133,10 @@ export default class Recipes extends Component {
             prev_page = 1;
             next_page = 2;
         }
-        console.log(prev_page)
-        axios({
-            url:`${url}/categories/${this.props.match.params.category_id}/recipes/?page=${next_page}`,
-            method: 'GET',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-        })
-            .then((response) => {
+
+        axiosInstance
+        .get(`/categories/${this.props.match.params.category_id}/recipes/?page=${next_page}`)    
+        .then((response) => {
                 this.setState({
                     recipes: response.data,
                     next_page: next_page + 1,
@@ -167,33 +147,29 @@ export default class Recipes extends Component {
             .catch(error =>
                 console.log(JSON.stringify(error)));
     }
-    checkRecipes = () =>{
+
+    //method to check if there are any recipes in the object and the state
+    checkRecipes = () => {
         const recipes = this.state.recipes;
-        if (recipes < 1){
+        if (recipes < 1) {
             return ("No recipes found in this category")
         }
     }
+
+    //handles logic to search the recipes 
     searchRecipes = (event) => {
+        event.preventDefault();
         if (this.state.search_text === "") {
             toast("No Search item provided", { type: toast.TYPE.ERROR });
             this.getRecipes();
             return 0;
         }
         event.preventDefault();
-       
-        axios({
-            url: `${url}/recipes/search/?q=${this.state.search_text}`,
-            method: 'get',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
 
-            },
-
-        })
-
-            .then((response) => {
-                 console.log(response.data);
+        axiosInstance
+        .get(`/recipes/search/?q=${this.state.search_text}`)    
+        .then((response) => {
+                console.log(response.data);
                 this.setState({
                     recipes: response.data,
                     next_page: this.state.next_page,
@@ -209,11 +185,8 @@ export default class Recipes extends Component {
                     this.getRecipes();
                 }
             });
-
-
-
     }
-
+    //Handles logic to edit a recipe
     editRecipe = (event, id) => {
         id = this.state.id,
             event.preventDefault();
@@ -223,45 +196,30 @@ export default class Recipes extends Component {
             'recipe_methods': this.state.recipe_methods,
             'recipe_ingredients': this.state.recipe_ingredients,
         }
-        axios({
-            url: `${url}/categories/${this.props.match.params.category_id}/recipes/${id}`,
-            method: 'PUT',
-            data: payload,
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-        })
-
-            .then((response) => {
+       
+        axiosInstance
+        .put(`/categories/${this.props.match.params.category_id}/recipes/${id}`, payload)    
+        .then((response) => {
                 this.getRecipes();
                 toast.error(response.data['message']);
-
 
             })
 
             .catch((error) => {
                 if (error.response) {
                     toast.error(error.response.data['message'])
-                    // console.log(error.response.data['message'])
                 }
             })
-
     }
 
+    //Handles logic to delete a recipe 
     handleDelete = (event, id) => {
         id = this.state.id,
-            event.preventDefault();
-        axios({
-            url: `${url}/categories/${this.props.match.params.category_id}/recipes/${id}`,
-            method: 'DELETE',
-            headers: {
-                Authorization: window.localStorage.getItem('token'),
-                content_type: 'application/json',
-            },
-        })
+        event.preventDefault();
 
-            .then((response) => {
+        axiosInstance
+        .delete(`/categories/${this.props.match.params.category_id}/recipes/${id}`)    
+        .then((response) => {
                 toast.error(response.data['message']);
                 this.setState({ handleDelete: false })
 
@@ -282,19 +240,14 @@ export default class Recipes extends Component {
             })
 
     }
+
     componentDidMount() {
         this.getRecipes();
     }
     render() {
         const redirect = this.state.redirect;
         const recipes = this.state.recipes;
-       
-        
-      
-        
-        
-        let x = 0;
-        
+
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
         }
@@ -304,30 +257,21 @@ export default class Recipes extends Component {
                 <div style={{ color: 'white', backgroundColor: '#EEEEEE', background: "grey" }}>
                     <Navbar />
                 </div>
+
                 <div className="empty-div">
                 </div>
                 <div className="categories-parent-background">
                     <div className="categories-container">
                         <div className="grid">
                             <ToastContainer />
-                            <Row>
-                                <Col sm={12}>
-                                    <Breadcrumb>
-                                        <Breadcrumb.Item  href="/categories" >Categories</Breadcrumb.Item>
-                                        <Breadcrumb.Item active href="#" >/Recipes/</Breadcrumb.Item>
-                                    </Breadcrumb>
-                                </Col>
-                            </Row>
-                            <Form onSubmit={(event => this.searchRecipes(event))}>
-                                <Row style={{ float: "right" }} >
-                                    <Col sm={8} >
-                                        <input id="mysearch" type="search" className="form-control" placeholder="search categories" onChange={(event) => this.setState({ search_text: event.target.value })} />
-                                    </Col>
-                                    <Col sm={3}>
-                                        <Button bsStyle="info" onClick={this.searchRecipes}>Search </Button>
-                                    </Col>
-                                </Row>
-                            </Form>
+
+                            {/* Component to display the breadcrumb on the page*/}
+                            <BreadCrumbComponent active_item={'/Recipes/'} href={'/categories'} item_one={'Categories'} />
+
+                            {/* Form responsible for recipe search  */}
+                            <SearchForm search_event={(event => this.searchRecipes(event))}
+                                name_change={(event) => this.setState({ search_text: event.target.value })}
+                                search={this.searchRecipes} search_placeholder={"Search Recipes"} />
 
                             <Row>
 
@@ -336,192 +280,79 @@ export default class Recipes extends Component {
                                 </Col>
                             </Row>
                             <div>
-                                <Modal className="modal-fade" {...this.props}
-                                    show={this.state.show} onHide={this.handleHide}>
 
-                                    <Modal.Header >
-                                        <Modal.Title id="contained-modal-title-sm" >
-                                            Add Recipes
-                            </Modal.Title>
-                                    </Modal.Header>
-                                    <Form className="form-horizontal" role="form">
+                                {/* Modal to add a recipe */}
+                                <RecipeModal method_state={this.state.show} hide_state={this.handleHide}
+                                    modal_title={'Add Recipe'} recipe_name={'Recipe Name '}
+                                    name_change={(event) => this.setState({ recipe_name: event.target.value })}
+                                    recipe_ingredients={'Recipe Ingredients'}
+                                    ingredients_change={(event) => this.setState({ recipe_ingredients: event.target.value })}
+                                    recipe_methods={'Recipe Methods'}
+                                    recipe_methods_change={(event) => this.setState({ recipe_methods: event.target.value })}
+                                    submit_click_state={(event => this.handleAddRecipes(event))}
+                                    submit_button={'Add Recipe'} cancel_click_state={this.handleHide} 
+                                    name_id={'recipe_name'} ingredients_id={'ingredients_name'} methods_id={'methods_name'} />
 
-                                        <Modal.Body>
-                                            <div className="form-group">
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_name">Recipe Name</label>
-                                                <div className="col-md-12">
-                                                    <input type="text" className="form-control"
-                                                        id="new_Cat" placeholder="Recipe Name" onChange={(event) => this.setState({ recipe_name: event.target.value })} />
-                                                </div>
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_ingredients">Recipe Ingredients</label>
-                                                <div className="col-md-12">
-                                                    <textarea rows="4" cols="50" className="form-control"
-                                                        id="new_Cat" placeholder="Recipe Ingredients" onChange={(event) => this.setState({ recipe_ingredients: event.target.value })}>
-                                                    </textarea>
-                                                    </div>
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_methods">Recipe Methods</label>
-                                                <div className="col-md-12">
-                                                    <textarea rows="4" cols="50" className="form-control"
-                                                        id="new_Cat" placeholder="Recipe Cooking Methods" onChange={(event) => this.setState({ recipe_methods: event.target.value})}>
-                                                    </textarea>
-                                                    </div>
-                                            </div>
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button onClick={(event => this.handleAddRecipes(event))} bsStyle="info">Add Recipe</Button>
-                                            <Button onClick={this.handleHide} bsStyle="danger">Cancel</Button>
-                                        </Modal.Footer>
-                                    </Form>
-                                </Modal>
-                                <Modal show={this.state.handleDelete} onHide={this.close} className="modal-fade" >
-                                    <form onSubmit={(event => this.handleDelete(event))}>
-                                        <Modal.Header onClick={(event => this.setState({ handleDelete: false }))} >
+                                {/* Modal to delete a recipe */}
+                                <DeleteComponent view_modal={this.state.handleDelete} close_modal={this.close}
+                                    form_submit={(event => this.handleDelete(event))}
+                                    modal_header={(event => this.setState({ handleDelete: false }))}
+                                    modal_title={'Are you sure you want to delete this recipe?'}
+                                    item_state={this.state.recipe_name}
+                                    click_state={(event => this.setState({ handleDelete: false }))} />
 
-                                            <Modal.Title> Are you sure you want to delete this recipe? </Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                           <center> {this.state.recipe_name} </center>
-                                            </Modal.Body>
-
-                                        <Modal.Footer>
-                                            <Button bsStyle="info" onClick={(event => this.setState({ handleDelete: false }))} >Cancel</Button>
-                                            <InputGroup.Button><Button bsStyle="danger" type="submit">delete</Button></InputGroup.Button>
-                                        </Modal.Footer>
-                                    </form>
-
-                                </Modal>
-
-                                <Modal show={this.state.editRecipe} onHide={this.close} className="modal-fade" >
-                                    <form onSubmit={(event => this.editRecipe(event))}>
-                                        <Modal.Header onClick={(event => this.setState({ editRecipe: false }))} >
-                                            <Modal.Title> Update Recipe  </Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-
-                                            <div className="form-group">
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_name">Recipe Name</label>
-                                                <div className="col-md-12">
-                                                    <input type="text" className="form-control"
-                                                        id="new_Cat" placeholder={this.state.recipe_name} value={this.state.recipe_name } onChange={(event) => this.setState({ recipe_name: event.target.value })} />
-                                                </div>
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_ingredients">Recipe Ingredients</label>
-                                                <div className="col-md-12">
-                                                    <textarea rows="4" cols="50" className="form-control"
-                                                        id="new_Cat" placeholder={this.state.recipe_ingredients} value={this.state.recipe_ingredients} onChange={(event) => this.setState({ recipe_ingredients: event.target.value })}>
-                                                    </textarea>
-                                                </div>
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_methods">Recipe Methods</label>
-                                                <div className="col-md-12">
-                                                    <textarea rows="4" cols="50" className="form-control"
-                                                        id="new_Cat" placeholder={this.state.recipe_methods} value={this.state.recipe_methods} onChange={(event) => this.setState({ recipe_methods: event.target.value })}>
-                                                    </textarea>
-                                                </div>
-                                            </div>
-
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <InputGroup.Button><Button bsStyle="success" type="submit" onClick={(event => this.setState({ editRecipe: false }))}>Update</Button></InputGroup.Button>
-                                            <Button bsStyle="info" onClick={(event => this.setState({ editRecipe: false }))}> Cancel</Button>
-
-                                        </Modal.Footer>
-                                    </form>
-
-                                </Modal>
-
-                                <Modal show={this.state.viewRecipe} onHide={this.close} className="modal-fade" >
-                                   
-                                        <Modal.Header onClick={(event => this.setState({ viewRecipe: false }))} >
-                                            <Modal.Title> View Recipe Details </Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-
-                                            <div className="form-group">
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_name">Recipe Name</label>
-                                                <div className="col-md-12">
-                                                <input type="text" className="form-control" readonly=""
-                                                        id="new_Cat" value={this.state.recipe_name} />
-                                                </div>
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_ingredients">Recipe Ingredients</label>
-                                                <div className="col-md-12">
-                                                <textarea rows="4" cols="50" className="form-control" readonly=""
-                                                        id="new_Cat" value={this.state.recipe_ingredients}>
-                                                    </textarea>
-                                                </div>
-                                                <label className="col-md-6 control-label"
-                                                    htmlFor="recipe_methods">Recipe Methods</label>
-                                                <div className="col-md-12">
-                                                <textarea rows="4" cols="50" className="form-control" readonly=""
-                                                        id="new_Cat" value={this.state.recipe_methods} >
-                                                    </textarea>
-                                                </div>
-                                            </div>
-
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                           
-                                            <Button bsStyle="info" onClick={(event => this.setState({ viewRecipe: false }))}> Close </Button>
-
-                                        </Modal.Footer>
-                                  
-
-                                </Modal>
+                                {/* Modal to edit a recipe */}
+                                <RecipeModal method_state={this.state.editRecipe} hide_state={this.close}
+                                    submit_form={(event => this.editRecipe(event))}
+                                    modal_header={(event => this.setState({ editRecipe: false }))}
+                                    modal_title={'Update Recipe'} recipe_name={this.state.recipe_name}
+                                    recipe_name_value={this.state.recipe_name}
+                                    name_change={(event) => this.setState({ recipe_name: event.target.value })}
+                                    recipe_ingredients={this.state.recipe_ingredients}
+                                    recipe_ingredients_value={this.state.recipe_ingredients}
+                                    ingredients_change={(event) => this.setState({ recipe_ingredients: event.target.value })}
+                                    recipe_methods={this.state.recipe_methods} recipe_methods_value={this.state.recipe_methods}
+                                    recipe_methods_change={(event) => this.setState({ recipe_methods: event.target.value })}
+                                    submit_click_state={(event => this.setState({ editRecipe: false }))}
+                                    submit_button={'Update'} cancel_click_state={(event => this.setState({ editRecipe: false }))} 
+                                    name_id={'recipe_name'} ingredients_id={'ingredients_name'} methods_id={'methods_name'}/>
 
 
-
-                               
+                                {/* Modal to view recipe details in readonly mode */}
+                                <RecipeModal method_state={this.state.viewRecipe} hide_state={this.close}
+                                    modal_header={(event => this.setState({ viewRecipe: false }))}
+                                    modal_title={' View Recipe Details '}
+                                    recipe_name_value={this.state.recipe_name}
+                                    recipe_ingredients_value={this.state.recipe_ingredients}
+                                    recipe_methods_value={this.state.recipe_methods}
+                                    readonly={'readonly="'}
+                                    cancel_click_state={(event => this.setState({ viewRecipe: false }))} />
 
                             </div>
 
                             <Row>
 
+                                {/* Show recipes in form of card after looping */}
                                 {
-
                                     recipes.map((recipes) => (
-                                        
-                                        <Col sm={4} key={recipes.id}> <i> {++x}</i>
-                                            <div className="card">
-                                                <div className="card-title">{recipes.recipe_name}</div>
-                                                <div className="card-text">
-                                                    <Button bsStyle="success" style={{ width: "70px" }} onClick={(event => this.setState({ editRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}>Edit</Button>
-                                                    <Button bsStyle="danger" style={{ marginLeft: "20px", width: "70px" }} onClick={(event => this.setState({ handleDelete: true, id: recipes.id, recipe_name: recipes.recipe_name }))}>Delete</Button>
-                                                </div>
-                                                <Button bsStyle="info" onClick={(event => this.setState({ viewRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}>View Recipes Details</Button>
-                                            </div>
-                                        </Col>
-                                      
+                                       
+                                        <CardComponent id={recipes.id}
+                                            card_title={recipes.recipe_name}
+                                            click_edit_event={(event => this.setState({ editRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}
+                                            click_delete_event={(event => this.setState({ handleDelete: true, id: recipes.id, recipe_name: recipes.recipe_name }))}
+                                            click={(event => this.setState({ viewRecipe: true, id: recipes.id, recipe_name: recipes.recipe_name, recipe_ingredients: recipes.recipe_ingredients, recipe_methods: recipes.recipe_methods }))}
+                                            btn_name={'View Recipe \'s Details'} 
+                                        />
                                     ))
                                 }
-                            
+
                             </Row>
                             {
                                 this.checkRecipes() ? <div className="alert alert-danger">No recipes found on this land, kindly add them </div> : <div> </div>
                             }
-                            <Row >
-                                <Col md={5}> </Col>
-                                <center>
-                                    <div>
-                                        <Pagination>
-
-                                            <Button bsStyle='secondary' onClick={this.getPrevPage}>Previous </Button>
-
-                                            {<div style={{ paddingRight: '10px' }}> </div>} 
-
-                                            <Button bsStyle='secondary' onClick={this.getNextPage}>Next </Button>
-                                        </Pagination>
-
-                                    </div>
-                                </center>
-                            </Row>
+                            <Paginater previous={this.getPrevPage} next={this.getNextPage} />
                         </div>
-                        
+
                     </div>
                 </div>
                 <div className="empty-div">
