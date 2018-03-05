@@ -60,23 +60,21 @@ exports[`DeleteComponent component renders properly without crashing 1`] = `
         bsClass="btn"
         bsStyle="info"
         disabled={false}
+        id="cancel"
       >
         Cancel
       </Button>
-      <InputGroupButton
-        bsClass="input-group-btn"
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="danger"
+        disabled={false}
+        id="delete"
+        type="submit"
       >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="danger"
-          disabled={false}
-          type="submit"
-        >
-          delete
-        </Button>
-      </InputGroupButton>
+        delete
+      </Button>
     </ModalFooter>
   </form>
 </Modal>

@@ -59,7 +59,7 @@ exports[`RecipeModal component renders properly without crashing 1`] = `
         >
           <input
             className="form-control"
-            id="new_Cat"
+            id="recipe_name"
             type="text"
           />
         </div>
@@ -75,7 +75,7 @@ exports[`RecipeModal component renders properly without crashing 1`] = `
           <textarea
             className="form-control"
             cols="50"
-            id="new_Cat"
+            id="recipe_ingredients"
             rows="4"
           />
         </div>
@@ -91,7 +91,7 @@ exports[`RecipeModal component renders properly without crashing 1`] = `
           <textarea
             className="form-control"
             cols="50"
-            id="new_Cat"
+            id="recipe_methods"
             rows="4"
           />
         </div>
@@ -101,27 +101,25 @@ exports[`RecipeModal component renders properly without crashing 1`] = `
       bsClass="modal-footer"
       componentClass="div"
     >
-      <InputGroupButton
-        bsClass="input-group-btn"
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="success"
+        disabled={false}
+        id="recipe_modal_button"
+        type="submit"
       >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="success"
-          disabled={false}
-          type="submit"
-        >
-           
-           
-        </Button>
-      </InputGroupButton>
+         
+         
+      </Button>
       <Button
         active={false}
         block={false}
         bsClass="btn"
         bsStyle="info"
         disabled={false}
+        id="cancel"
       >
          Cancel
       </Button>

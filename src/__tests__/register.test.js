@@ -36,28 +36,17 @@ describe('Register component', () => {
     });
 
     it('should create a user', () => {
-        const component = shallow(<Register />);
-        const preventDefault = jest.fn();
-        component.setState({
+        wrapper.setState({
            email: 'hey@hey.com',
            username: 'mwaz',
            password: '1234567',
            cpassword:'123456',
         });
-        component.find('Button').simulate('submit', { preventDefault });
-        expect(toJson(component)).toMatchSnapshot();
+        wrapper.find('Button').simulate('submit', { preventDefault });
+        expect(wrapper.instance().handleClick())
     });
     
-    it('state changes on input change', () => {
-        const component = shallow(<Register />);
-        component.find('Button').simulate('change', {
-            target: {
-                value: 'Change function'
-            }
-        });
-
-        expect(toJson(component)).toMatchSnapshot();
-    });
+   
 
 });
 
@@ -75,5 +64,8 @@ describe('expect registration inputs to change states on target', () => {
         expect(wrapper.state('password')).toEqual('password123456');
         expect(wrapper.state('cpassword')).toEqual('password123456');
     });
+        
+    
+
 });
 

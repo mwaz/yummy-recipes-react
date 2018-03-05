@@ -27,6 +27,7 @@ exports[`CardComponent component renders properly without crashing 1`] = `
         bsClass="btn"
         bsStyle="success"
         disabled={false}
+        id="edit"
         style={
           Object {
             "width": "70px",
@@ -41,6 +42,7 @@ exports[`CardComponent component renders properly without crashing 1`] = `
         bsClass="btn"
         bsStyle="danger"
         disabled={false}
+        id="delete"
         style={
           Object {
             "marginLeft": "20px",

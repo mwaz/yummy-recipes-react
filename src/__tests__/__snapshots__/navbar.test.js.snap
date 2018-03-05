@@ -153,9 +153,7 @@ exports[`Navbar component renders properly without crashing 1`] = `
     className="modal-fade"
     dialogComponentClass={[Function]}
     enforceFocus={true}
-    getItem={[Function]}
     keyboard={true}
-    location={Object {}}
     manager={
       ModalManager {
         "add": [Function],
@@ -168,7 +166,6 @@ exports[`Navbar component renders properly without crashing 1`] = `
         "remove": [Function],
       }
     }
-    navbar={[Function]}
     onHide={[Function]}
     renderBackdrop={[Function]}
     restoreFocus={true}
@@ -233,21 +230,18 @@ exports[`Navbar component renders properly without crashing 1`] = `
       bsClass="modal-footer"
       componentClass="div"
     >
-      <InputGroupButton
-        bsClass="input-group-btn"
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="success"
+        disabled={false}
+        id="reset"
+        onClick={[Function]}
+        type="submit"
       >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="success"
-          disabled={false}
-          onClick={[Function]}
-          type="submit"
-        >
-          Reset Password
-        </Button>
-      </InputGroupButton>
+        Reset Password
+      </Button>
       <Button
         active={false}
         block={false}
