@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-import axios from 'axios';
 import Navbar from '../common/navbar.js';
 import Footer from '../common/footer.js';
 import { Panel, FormGroup, FormControl, Button} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import axiosInstance from '../common/axios-calls';
 
 class Login extends Component {
     constructor(props) {
@@ -18,18 +18,16 @@ class Login extends Component {
         }
     }
     handleClick(event){
-        const url = 'http://127.0.0.1:5000/yummy_api/v1/auth';
         let payload = {
             'email': this.state.email,
             'password': this.state.password,
         }
-        axios.post(`${ url }/login`, payload)
+        axiosInstance
+            .post(`/auth/login`, payload)
             .then((response) => {
                 window.localStorage.setItem('token', response.data.access_token);
                 window.localStorage.setItem('name', response.data['user']);
                 window.localStorage.setItem('login', 'true');
-                
-
 
                 toast.success(response.data['message'])
                     this.setState({ redirect: true, username: response.data['user'] })
@@ -60,14 +58,14 @@ class Login extends Component {
                             <div className="card">
                                 <div className="card-title">Login </div>
                                 <div className="card-text">
-                                    <Panel header='Register' bsStyle="warning">
+                                    <Panel header='Login'>
                                         <FormGroup>
                                             <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="email" id="email" placeholder="email" onChange={(event) => this.setState({ email: event.target.value })} />
                                         </FormGroup>
                                         <FormGroup>
                                             <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="password" id="password" placeholder="Password" onChange={(event) => this.setState({ password: event.target.value })} />
                                         </FormGroup>
-                                        <Button bsStyle="success" onClick={(event => this.handleClick(event))}>Login</Button>
+                                        <Button bsStyle="success" type="submit" id="login" onClick={(event => this.handleClick(event))}>Login</Button>
                                     </Panel>
                                      </div>
                                 

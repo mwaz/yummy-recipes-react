@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import NavigationBar from '../common/navbar.js';
 import Footer from '../common/footer.js';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import axiosInstance from '../common/axios-calls';
 
-class Register extends Component {  
-    constructor (props) {
+
+class Register extends Component {
+    constructor(props) {
         super(props)
         this.state = {
             username: '',
@@ -15,42 +16,40 @@ class Register extends Component {  
             password: '',
             cpassword: '',
             redirect: '',
-            formErrors: { email: '', password: '', cpassword: ''},
-            emailValid: false,
-            passwordValid: false,
-            formValid: false
+            errors: {},
         }
+
     }
-   handleClick (event){
-       const url = 'http://127.0.0.1:5000/yummy_api/v1/auth';
-       let payload = {
-           'username': this.state.username,
-           'email': this.state.email,
-           'password': this.state.password,
-           'cpassword': this.state.cpassword,
+    handleClick(event) {
+        let payload = {
+            'username': this.state.username,
+            'email': this.state.email,
+            'password': this.state.password,
+            'cpassword': this.state.cpassword,
 
-       }
-    if(this.state.password != this.state.cpassword){
-        toast("Password Mismatch", {type: toast.TYPE.ERROR});
-        return 0;
-       }
-    
-    axios.post(`${ url }/register `, payload)
-           .then((response) => {
-               toast.success(response.data.message)
-               this.setState({ redirect: true })
-               window.localStorage.setItem('login', 'False');
+        }
+        if (this.state.password != this.state.cpassword) {
+            toast("Password Mismatch", { type: toast.TYPE.ERROR });
+            return 0;
+        }
 
-               console.log(JSON.stringify(response))
-           })
-        .catch((error) => {
-            if (error.response) {
-                toast.error(error.response.data['message'])
-                // console.log(error.resposne.data.message)
-            }
-        })
-   }
-    
+        axiosInstance
+            .post(`auth/register `, payload)
+            .then((response) => {
+                toast.success(response.data.message)
+                this.setState({ redirect: true })
+                window.localStorage.setItem('login', 'False');
+
+                console.log(JSON.stringify(response))
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                    // console.log(error.resposne.data.message)
+                }
+            })
+    }
+
     render() {
         const redirect = this.state.redirect
         if (redirect) {
@@ -58,45 +57,37 @@ class Register extends Component {  
         }
         return (
             <div>
-            
-                
-            <div className="background-div">
+                <div className="background-div">
                     <NavigationBar />
-                <div className="background-container">
-                    <div className="background-container-form">
-                        <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}> Register Here </div></strong></center>
-                           
+                    <div className="background-container">
+                        <div className="background-container-form">
+                            <center><strong> <div style={{ fontSize: "20px", paddingBottom: "1%" }}> Register Here </div></strong></center>
                             <ToastContainer />
-                        
-                            
                             <div className="card">
                                 <div className="card-title">Registration </div>
-                                <div className="card-text">
+                                    <div className="card-text">
                                     <Panel header='Register' bsStyle="warning">
                                         <FormGroup>
-                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="text" id="username" placeholder="username" onChange={(event) => this.setState({ username: event.target.value })} />
+                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="text" id="username" placeholder="username" name="username" onChange={(event) => this.setState({ username: event.target.value })} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="email" id="email" placeholder="email" onChange={(event) => this.setState({ email: event.target.value })} />
+                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="email" id="email" placeholder="email" name="email" onChange={(event) => this.setState({ email: event.target.value })} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="password" id="password" placeholder="Password" onChange={(event) => this.setState({ password: event.target.value })} />
+                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="password" id="password" placeholder="Password" name="password" onChange={(event) => this.setState({ password: event.target.value })} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="password" id="cpassword" placeholder="confirm Password" onChange={(event) => this.setState({ cpassword: event.target.value })} />
+                                            <FormControl style={{ backgroundColor: "white", color: "black", filter: "opacity(1)", }} type="password" id="cpassword" placeholder="confirm Password" name="cpassword" onChange={(event) => this.setState({ cpassword: event.target.value })} />
                                         </FormGroup>
-                                        <Button bsStyle="success" onClick={(event => this.handleClick(event))}>Register</Button>
+                                        <Button type="submit" bsStyle="success" onClick={(event => this.handleClick(event))}>Register</Button>
                                     </Panel>
 
-                                    </div>
-                                
+                                </div>
                             </div>
-
-                       
+                        </div>
                     </div>
                 </div>
-            </div>
-            <Footer />
+                <Footer />
             </div>
         );
     }
