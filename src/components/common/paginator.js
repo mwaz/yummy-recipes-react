@@ -1,30 +1,25 @@
 import React from 'react';
-import { Pagination, PaginationItem, PaginationLink, Col, Row } from 'reactstrap';
+import { Pagination, Col, Row, Button } from 'reactstrap';
 
-export default class Paginator extends React.Component {
-    render() {
+const Paginator = (props) => {
         return (
-            <Row>
-            <Col sm={12}>
-            <div className="paginate">
-            <Pagination>
-               
-                <PaginationItem>
-                                <PaginationLink previous href="#"/> 
-                </PaginationItem>
-                
-         
-                <PaginationItem>
-                    <PaginationLink next href="#"  Next/>
-                </PaginationItem>
-              
-            </Pagination>
-           
-            </div>
-            </Col>
+            <Row >
+                <Col md={5}> </Col>
+                <center>
+                    <div>
+                        <Pagination>
+
+                            <Button bsStyle='info' id="previous" onClick={props.previous}>Previous </Button>
+
+                            {<div style={{ paddingRight: '10px' }}> </div>}
+
+                            <Button bsStyle='info' id="next" onClick={props.next} >Next </Button>
+                        </Pagination>
+
+                    </div>
+                </center>
             </Row>
-              
-            
         );
-    }
+      
 }
+export default Paginator   
