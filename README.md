@@ -21,29 +21,29 @@ Find Heroku App [here](https://yummy-pi.herokuapp.com/)
 use npm or yarn
   using npm
 
-         ```
+         
          $ npm install
-         ```
+       
    
    using yarn
    
-         ```
-        $ yarn install
-        ```
+     
+      $ yarn install
+  
 
 2 Run the Application
 
   using npm
 
-         ```
+       
          $ npm run
-         ```
+       
    
   using yarn
    
-         ```
+        
         $ yarn run
-        ```
+      
         
 
 
