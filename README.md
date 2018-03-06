@@ -42,6 +42,19 @@ use npm or yarn
    
         
         $ yarn run
+    
+3 Running the Tests
+
+  using npm
+
+       
+         $ npm run test --coverage
+       
+   
+  using yarn
+   
+        
+        $ yarn run test --coverage
       
         
 
