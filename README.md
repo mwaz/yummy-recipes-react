@@ -49,4 +49,22 @@ use npm or yarn
 
 # Screenshots
 
+#### Login Page
+<img width="1439" alt="screen shot 2018-03-06 at 14 46 44" src="https://user-images.githubusercontent.com/10160787/37031312-5a79bf6c-214f-11e8-9378-75da3b5fc2b8.png">
+
+#### Categories Page
+<img width="1440" alt="screen shot 2018-03-06 at 14 47 22" src="https://user-images.githubusercontent.com/10160787/37031311-5a5126ba-214f-11e8-97ce-ab788d86a1f3.png">
+
+#### Recipes Page
+<img width="745" alt="screen shot 2018-03-06 at 14 47 49" src="https://user-images.githubusercontent.com/10160787/37031309-5a292eb2-214f-11e8-99bb-7116015d1f5a.png">
+
+#### Reset Password
+<img width="1294" alt="screen shot 2018-03-06 at 14 48 02" src="https://user-images.githubusercontent.com/10160787/37031308-5a00dd86-214f-11e8-8d0b-f55e84b69d6d.png">
+
+
+
+
+
+
+
 
