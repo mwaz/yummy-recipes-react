@@ -2,6 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7a125a14664540c9b7fe7a2f7613a9df)](https://www.codacy.com/app/mwaz/yummy-recipes-react?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mwaz/yummy-recipes-react&amp;utm_campaign=Badge_Grade)
 
+[![Build Status](https://travis-ci.org/mwaz/yummy-recipes-react.svg?branch=ch-code-refactor-155710913)](https://travis-ci.org/mwaz/yummy-recipes-react)
 # Yummy Recipes React Frontend
 Challenge 4: This project involves a react front end implementation of the challenge 3 API that was based on python-flask endpoints. 
 
