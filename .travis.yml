@@ -6,5 +6,5 @@ script:
   - npm test -- -u --coverage 
 
 after_success:
- - COVERALLS_REPO_TOKEN=$ npm run coveralls
- 
+  - coveralls < coverage/lcov.info
+
