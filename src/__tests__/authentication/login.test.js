@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Login from '../components/auth-front/login';
+import Login from '../../components/auth-front/login';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 import { ToastContainer } from 'react-toastify';
 

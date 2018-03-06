@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Categories from '../components/categories-front/categories';
+import Categories from '../../components/categories-front/categories';
 import toJson, { shallowToJson } from 'enzyme-to-json';
-import ReusableModal from '../components/common/category-edit-add-modal';
-import DeleteComponent from '../components/common/delete';
-import SearchForm from '../components/common/search';
-import Paginator from '../components/common/paginator';
+import ReusableModal from '../../components/common/category-edit-add-modal';
+import DeleteComponent from '../../components/common/delete';
+import SearchForm from '../../components/common/search';
+import Paginator from '../../components/common/paginator';
 
 describe('Categories component', () => {
     const category = jest.fn();
@@ -23,7 +23,7 @@ describe('Categories component', () => {
     it('has clickable button that adds categories', () => {
         expect(wrapper.find('Button').length).toBe(1)
         expect(wrapper.find('Button').simulate('click'))
-        expect(wrapper.instance().handleAddCategories())
+        expect(wrapper.instance().handleAddCategories({ preventDefault }))
     });
 
     it('it renders category states initially', () => {

@@ -24,7 +24,6 @@ exports[`SearchForm component renders properly without crashing 1`] = `
       <input
         className="form-control"
         name="search"
-        type="search"
       />
     </Col>
     <Col

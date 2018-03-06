@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import SearchForm from '../components/common/search';
+import SearchForm from '../../components/common/search';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
 describe('SearchForm component', () => {

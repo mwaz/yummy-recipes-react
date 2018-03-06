@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import RecipeModal from '../components/common/recipe-modal';
+import BreadCrumbComponent from '../../components/common/breadcrumb';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
-describe('RecipeModal component', () => {
-    const recipes= jest.fn();
-    const wrapper = shallow(<RecipeModal recipes={recipes} location={{}} />);
+describe('BreadCrumbComponent component', () => {
+    const breadcrumb= jest.fn();
+    const wrapper = shallow(<BreadCrumbComponent breadcrumb={breadcrumb} location={{}} />);
     const preventDefault = jest.fn();
 
     it('renders properly without crashing', () => {

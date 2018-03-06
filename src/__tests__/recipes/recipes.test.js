@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Recipes from '../components/recipes-front/recipes';
-import SearchForm from '../components/common/search';
-import CardComponent from '../components/common/card'
+import Recipes from '../../components/recipes-front/recipes';
+import SearchForm from '../../components/common/search';
+import CardComponent from '../../components/common/card'
 import toJson, { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom';
-import RecipeModal from '../components/common/recipe-modal';
-import DeleteComponent from '../components/common/delete';
-import Paginator from '../components/common/paginator';
+import RecipeModal from '../../components/common/recipe-modal';
+import DeleteComponent from '../../components/common/delete';
+import Paginator from '../../components/common/paginator';
 
 describe('Recipes component', () => {
     const wrapper = shallow( <Recipes  match={{ params: { id: 1 } }}/>

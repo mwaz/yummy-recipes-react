@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { shallow, mount, render } from 'enzyme';
-import ReusableModal from '../components/common/category-edit-add-modal';
+import ReusableModal from '../../components/common/category-edit-add-modal';
 import toJson, { shallowToJson } from 'enzyme-to-json';
-import Categories from '../components/categories-front/categories';
+import Categories from '../../components/categories-front/categories';
 
 describe('ReusableModal component', () => {
     const modals = jest.fn();

@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import BreadCrumbComponent from '../components/common/breadcrumb';
+import Footer from '../../components/common/footer';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
-describe('BreadCrumbComponent component', () => {
-    const breadcrumb= jest.fn();
-    const wrapper = shallow(<BreadCrumbComponent breadcrumb={breadcrumb} location={{}} />);
+describe('Footer component', () => {
+    const footer = jest.fn();
+    const wrapper = shallow(<Footer footer={footer} location={{}} />);
     const preventDefault = jest.fn();
 
     it('renders properly without crashing', () => {

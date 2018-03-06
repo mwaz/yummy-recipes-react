@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Navbar from '../components/common/navbar';
+import Navbar from '../../components/common/navbar';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 import { MemoryRouter } from 'react-router-dom'; 
 

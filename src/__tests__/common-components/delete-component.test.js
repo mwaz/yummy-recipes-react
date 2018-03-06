@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import DeleteComponent from '../components/common/delete';
+import DeleteComponent from '../../components/common/delete';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
 describe('DeleteComponent component', () => {

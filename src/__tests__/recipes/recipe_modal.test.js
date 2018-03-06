@@ -1,10 +1,12 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Private from '../containers/private';
+import RecipeModal from '../../components/common/recipe-modal';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
-describe('Login component', () => {
-    const wrapper = shallow(<Private />);
+describe('RecipeModal component', () => {
+    const recipes= jest.fn();
+    const wrapper = shallow(<RecipeModal recipes={recipes} location={{}} />);
+    const preventDefault = jest.fn();
 
     it('renders properly without crashing', () => {
         expect(shallowToJson(wrapper)).toMatchSnapshot();

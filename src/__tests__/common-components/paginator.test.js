@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Paginator from '../components/common/paginator'
+import Paginator from '../../components/common/paginator'
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
 describe('Paginator component', () => {

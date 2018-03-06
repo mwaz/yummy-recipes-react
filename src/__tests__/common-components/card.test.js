@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import CardComponent from '../components/common/card';
+import CardComponent from '../../components/common/card';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
 describe('CardComponent component', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Register from '../components/auth-front/register';
+import Register from '../../components/auth-front/register';
 import toJson, { shallowToJson } from 'enzyme-to-json';
 
 describe('Register component', () => {
