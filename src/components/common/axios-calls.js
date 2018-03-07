@@ -4,7 +4,7 @@ import axios from 'axios';
  * Component for handling Api calls without duplicating in each file.
  */
 const axiosInstance = axios.create({
-  baseURL: 'https://yummy-pie.herokuapp.com/yummy_api/v1',
+  baseURL: 'https://yummy-pi.herokuapp.com/yummy_api/v1',
   headers: {
     Authorization: `${localStorage.getItem('token')}`,
   },
