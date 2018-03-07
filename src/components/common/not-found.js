@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import Navbar from './navbar'
 import Footer from './footer'
+ 
+/**
+ * Component to Handle Page not found
+ */
 export default class NotFound extends Component {
     render() {
         return (

@@ -6,6 +6,13 @@ import {
     FormGroup, InputGroup, Pagination
 } from 'react-bootstrap';
 
+/**
+ * Component to Handle the recipe modal 
+ * Adding a new recipe
+ * editinhg s recipe 
+ * Viewing the recipe details
+ */
+
 const RecipeModal = (props) => {
 return(
     <Modal show={props.method_state} onHide={props.hide_state} className="modal-fade" >

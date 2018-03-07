@@ -15,13 +15,16 @@ import {
 import {
     Button,
     Modal, Form,
-    FormGroup, InputGroup
+    FormGroup, InputGroup,
 } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import axiosInstance from '../common/axios-calls'
 
+/**
+ * Navbar component with logout
+ */
 export default class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
@@ -40,24 +43,43 @@ export default class NavigationBar extends React.Component {
         this.handle_password_reset = this.handle_password_reset.bind(this);
     }
 
+/**
+ * Method to handle modal for password reset 
+ */
     handle_password_reset = () => {
         this.setState({ password_reset_click: true })
     }
 
+/**
+ * Toggling the navbar buttons
+ */
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
 
+/**
+ * Method to handle logging out a user
+ */
     handleLogout = () => {
-        window.localStorage.setItem('login', 'false');
-        localStorage.removeItem('token');
-        localStorage.removeItem('name');
-
-        this.setState({
-            redirect: true,
-        });
+        axiosInstance
+            .post(`/auth/logout`)
+            .then((response) => {
+                toast.success(response.data.message)
+                window.localStorage.setItem('login', 'false');
+                localStorage.removeItem('token');
+                localStorage.removeItem('name');
+                this.setState({
+                    redirect: true,
+                });
+            })
+            .catch((error) => {
+                if (error.response) {
+                    toast.error(error.response.data['message'])
+                }
+            })
+       
     }
 
 
@@ -68,6 +90,10 @@ export default class NavigationBar extends React.Component {
     handleHide = () => {
         this.setState({ show: false });
     }
+
+/**
+ * Method to handle reset password
+ */
 
     resetPassword = (event) => {
         let payload = {
@@ -82,19 +108,22 @@ export default class NavigationBar extends React.Component {
         axiosInstance
             .put(`/password-reset`, payload)
             .then((response) => {
-                toast.success(response.data.message)
-                this.setState({ show: false })
-                console.log(response.data.message)
+                toast.success(response.data.message);
+                this.setState({ show: false });
 
             })
             .catch((error) => {
                 if (error.response) {
-                    toast.error(error.response.data['message'])
+                    toast.error(error.response.data['message']);
                 }
-            })
+            });
     }
 
     render() {
+    
+    /**
+     * Renders the navbar page depending on whether the user is logged in or not
+     */
         const redirect = this.state.redirect;
         const username = window.localStorage.getItem('name');
 
@@ -114,6 +143,7 @@ export default class NavigationBar extends React.Component {
                                     `Welcome ${username}` : `Welcome Guest`}</NavLink>
                             </NavItem>
                             <NavItem>
+                                {/** Will only display the login if user is not logged in **/}
                                 {username ?
                                     "" :
                                     <NavLink style={{ color: 'white' }} href="/login/">
@@ -121,6 +151,7 @@ export default class NavigationBar extends React.Component {
                                     </NavLink>}
                             </NavItem>
                             <NavItem>
+                                {/** Will only display the Categories on navbar  if user  is logged in **/}
                                 {username ?
                                     <NavLink href="/categories" style={{ color: 'white' }}>Categories</NavLink> :
                                     ""}
@@ -134,6 +165,7 @@ export default class NavigationBar extends React.Component {
 
                                 <DropdownMenu >
                                     <DropdownItem divider />
+                                    {/** Will only display the logout if user is logged in else register **/}
                                     {username ?
                                         <DropdownItem id="logout" onClick={(event => this.handleLogout(event))} >
                                             Logout
@@ -177,15 +209,11 @@ export default class NavigationBar extends React.Component {
                                     id="cpassword" placeholder="Confirm Password" onChange={(event) => this.setState({ cpassword: event.target.value })} />
                             </div>
                         </div>
-
                     </Modal.Body>
                     <Modal.Footer>
                         <Button bsStyle="success" type="submit" id="reset" onClick={(event => this.resetPassword(event))} >Reset Password</Button>
                         <Button bsStyle="info" onClick={this.handleHide}> Cancel</Button>
-
                     </Modal.Footer>
-
-
                 </Modal>
             </div>
         );
