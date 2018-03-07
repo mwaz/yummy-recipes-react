@@ -15,7 +15,9 @@ import SearchForm from '../common/search';
 import DeleteComponent from '../common/delete';
 import CardComponent from '../common/card';
 import BreadCrumbComponent from '../common/breadcrumb'
-
+        /**
+         * Component hold the category functionality 
+         */
 export default class Categories extends Component {
     constructor(props, context) {
         super(props, context)
@@ -43,7 +45,10 @@ export default class Categories extends Component {
     }
 
 
-    // handles showing modal of adding a category
+        /**
+         * handles showing modal of adding a category
+         */
+    
     handleShow = () => {
         this.setState({ show: true });
     }
@@ -53,8 +58,12 @@ export default class Categories extends Component {
         this.setState({ show: false });
     }
 
-    //handles the request when adding a category 
-    handleAddCategories = () => {
+        /**
+         * handles functinality for adding a category
+         */
+
+    handleAddCategories = (event) => {
+        event.preventDefault();
         let payload = {
             'category_name': this.state.category_name
         }
@@ -74,7 +83,10 @@ export default class Categories extends Component {
             })
     }
 
-    //Gets all the categories for a given user
+   
+    /**
+     * Gets all the categories for a given user
+     */
     getCategories = () => {
         axiosInstance
             .get('/categories/')    
@@ -85,7 +97,7 @@ export default class Categories extends Component {
             })
             .catch((error) => {
                 if (error.response) {
-                    this.setState({ editCategory: true });
+                   
                     toast.error(error.response.data['message'])
                     if (error.response.data['message'] === "Token is expired")
                     {
@@ -97,8 +109,10 @@ export default class Categories extends Component {
             });
 
     }
-
-    //Gets the previous page for a list of paginated categories
+    
+    /**
+     * Gets the previous page for a list of paginated categories
+     */
     getPrevPage(event) {
         let prev_page = this.state.prev_page
         let next_page = this.state.next_page
@@ -117,17 +131,15 @@ export default class Categories extends Component {
                     categories: response.data,
                     next_page: next_page - 1,
                     prev_page: prev_page - 1,
-
-                    // prev_page: response.data.previous_page,
-                    // next_page: response.data.next_Page,
-
                 });
             })
             .catch(error =>
                 console.log(JSON.stringify(error)));
     }
 
-    //Gets the previous page for a list of paginated categories
+    /**
+     * Gets the previous page for a list of paginated categories
+     */
     getNextPage(event) {
         let next_page = this.state.next_page
         let prev_page = this.state.prev_page
@@ -151,7 +163,9 @@ export default class Categories extends Component {
                 console.log(JSON.stringify(error)));
     }
 
-    //handles editing of a category 
+    /**
+     *handles editing of a category
+     */
     editCategory = (event, id) => {
         id = this.state.id,
         event.preventDefault();
@@ -162,21 +176,23 @@ export default class Categories extends Component {
         axiosInstance    
             .put(`/categories/${id}`, payload)
             .then((response) => {
+                toast.success(`Successfully edited ${this.state.category_name} category`);
                 this.getCategories();
                 this.setState({editCategory: false});
-                toast.error(response.data['message']);
+                
             })
             .catch((error) => {
                 if (error.response) {
                     this.setState({ editCategory: true });
                     toast.error(error.response.data['message'])
-                    // console.log(error.response.data['message'])
                 }
             })
 
     }
 
-    //Handles deleting a category
+    /**
+     * Handles deleting a category
+     */
     handleDelete = (event, id) => {
         id = this.state.id,
         event.preventDefault();
@@ -204,8 +220,10 @@ export default class Categories extends Component {
             })
 
     }
-
-    //Handles logic for deleting a category
+ 
+    /**
+     * Handles logic for deleting a category
+     */
     searchCategories = (event) => {
         if (this.state.search_text === "") {
             toast("No Search item provided", { type: toast.TYPE.ERROR });
@@ -216,7 +234,6 @@ export default class Categories extends Component {
         axiosInstance    
         .get(`/categories/search/?q=${this.state.search_text}`)
             .then((response) => {
-                // console.log(response.data);
                 this.setState({
                     categories: response.data,
                     next_page: response.data.next_Page,
@@ -230,6 +247,10 @@ export default class Categories extends Component {
                 }
             });
     }
+    
+     /**
+     * checks if there are any categories before rendering the page
+     */
     checkCategories = () => {
         const categories = this.state.categories;
         if (categories < 1) {
@@ -238,6 +259,9 @@ export default class Categories extends Component {
     }
 
 
+    /**
+     * On page load all the categories for a particular user are shown
+     */
     componentDidMount() {
         this.getCategories();
     }
@@ -248,6 +272,9 @@ export default class Categories extends Component {
         const prev_page = this.state.prev_page
         const next_page = this.state.next_page
    
+    /**
+     * page will only render categories if the user is logged in else redirect to login
+     */
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
         }
@@ -282,13 +309,13 @@ export default class Categories extends Component {
                             </Row>
                             <div>
 
-                                {/*  adds a category  */}
+                                {/*  modal to  add a category  */}
                                 <ReusableModal method_state={this.state.show} method={this.handleAddCategories}
                                     category_state={'Add Category'} category_placeholder={' Category Name '}
                                     onChange={(event) => this.setState({ category_name: event.target.value })}
                                     current_state={this.handleHide} btn_name={'Add Category'} />
 
-                                {/* deletes a category  */}
+                                {/* modal to delete a category  */}
                                 <DeleteComponent view_modal={this.state.handleDelete} 
                                     form_submit={this.handleDelete}
                                     modal_header={(event => this.setState({ handleDelete: false }))}
@@ -296,7 +323,7 @@ export default class Categories extends Component {
                                     item_state={this.state.category_name}
                                     click_state={(event => this.setState({ handleDelete: false }))} />
 
-                                {/* updates a category  */}
+                                {/* modal to update a category  */}
                                 <ReusableModal method_state={this.state.editCategory} method={this.editCategory}
                                     category_state={'Edit Category'} onChange={(event) => this.setState({ category_name: event.target.value })} category_placeholder={this.state.category_name}
                                 category_value={this.state.category_name}
@@ -308,7 +335,9 @@ export default class Categories extends Component {
                                 {/* Loops over the category objects and displays each as a card */}
                                 {
                                     categories.map((categories) => (
-                                       //Card Component to hold categories
+                                       /**
+                                        * Card Component to hold categories
+                                        */
                                         <CardComponent id={categories.id} 
                                             card_title={categories.category_name} 
                                             click_edit_event={(event => this.setState({ editCategory: true, id: categories.id, category_name: categories.category_name }))}

@@ -16,6 +16,11 @@ import DeleteComponent from '../common/delete';
 import CardComponent from '../common/card';
 import BreadCrumbComponent from '../common/breadcrumb'
 
+/**
+ * Component to Handle the recipes CRUD
+ * 
+ */
+
 export default class Recipes extends Component {
     constructor(props) {
         super(props)
@@ -30,6 +35,7 @@ export default class Recipes extends Component {
             prev_page: 1,
             id: '',
             search_text: '',
+            current_page: 0,
 
         }
 
@@ -42,17 +48,27 @@ export default class Recipes extends Component {
         this.getPrevPage = this.getPrevPage.bind(this);
     }
 
-    //Handles modal opening when adding a recipe
+    /**
+     * Handles modal opening when adding a recipe
+     */
+
     handleShow = () => {
         this.setState({ show: true });
     }
 
-    //Handles modal closing after adding a recipe
+    
+    /**
+    *Handles modal closing after adding a recipe
+    */
+
     handleHide = () => {
         this.setState({ show: false });
     }
 
-    //Handles logic for adding a recipe
+    /**
+    * Handles logic for adding a recipe
+    */
+
     handleAddRecipes = (event) => {
         event.preventDefault();
         let payload = {
@@ -76,12 +92,13 @@ export default class Recipes extends Component {
             })
     }
 
-    //handles logic to  fetch recipes 
+    /**
+     * handles logic to  fetch recipes
+     */
     getRecipes = () => {
             axiosInstance
             .get(`/categories/${this.props.match.params.category_id}/recipes/`)
             .then((response) => {
-                // console.log(response.data);
                 this.setState({
                     recipes: response.data,
                     next_page: this.state.next_page,
@@ -95,11 +112,14 @@ export default class Recipes extends Component {
             });
     }
 
-    //logic to get previous recipe page for paginated recipes
+    /**
+     * Logic to get previous recipe page for paginated recipes
+     */
     getPrevPage(event) {
         event.preventDefault();
         let prev_page = this.state.prev_page
         let next_page = this.state.next_page
+        let current_page = this.state.current_page
 
         if (prev_page < 1 || next_page < 1) {
 
@@ -114,19 +134,22 @@ export default class Recipes extends Component {
                 this.setState({
                     recipes: response.data,
                     next_page: next_page - 1,
-                    prev_page: prev_page - 1,
-
+                    prev_page: prev_page,
                 });
             })
             .catch(error =>
                 console.log(JSON.stringify(error)));
     }
 
-    //handles logic to get next page of paginated recipes 
+    /**
+     * handles logic to get next page of paginated recipes
+     */
     getNextPage(event) {
         event.preventDefault();
         let prev_page = this.state.prev_page
         let next_page = this.state.next_page
+        let current_page = this.state.current_page
+
         event.preventDefault();
         if (prev_page < 1 || next_page < 1) {
 
@@ -140,15 +163,16 @@ export default class Recipes extends Component {
                 this.setState({
                     recipes: response.data,
                     next_page: next_page + 1,
-                    prev_page: prev_page + 1,
-
+                    prev_page: next_page,
                 });
             })
             .catch(error =>
                 console.log(JSON.stringify(error)));
     }
 
-    //method to check if there are any recipes in the object and the state
+    /**
+     * method to check if there are any recipes in the object and the state
+     */
     checkRecipes = () => {
         const recipes = this.state.recipes;
         if (recipes < 1) {
@@ -156,7 +180,10 @@ export default class Recipes extends Component {
         }
     }
 
-    //handles logic to search the recipes 
+    /**
+     * Handles logic to search the recipes
+     */
+
     searchRecipes = (event) => {
         event.preventDefault();
         if (this.state.search_text === "") {
@@ -174,9 +201,6 @@ export default class Recipes extends Component {
                     recipes: response.data,
                     next_page: this.state.next_page,
                     prev_page: this.state.prev_page,
-
-                    // next_page: response.data.next_page,
-                    // previous_page: response.data.previous_page,
                 });
             })
             .catch((error) => {
@@ -186,7 +210,10 @@ export default class Recipes extends Component {
                 }
             });
     }
-    //Handles logic to edit a recipe
+    /**
+     * Handles logic to edit a recipe
+     */
+    
     editRecipe = (event, id) => {
         id = this.state.id,
             event.preventDefault();
@@ -212,7 +239,9 @@ export default class Recipes extends Component {
             })
     }
 
-    //Handles logic to delete a recipe 
+    /**
+     * Handles logic to delete a recipe
+     */
     handleDelete = (event, id) => {
         id = this.state.id,
         event.preventDefault();
@@ -235,18 +264,22 @@ export default class Recipes extends Component {
             .catch((error) => {
                 if (error.response) {
                     toast.error(error.response.data['message'])
-                    // console.log(error.response.data['message'])
                 }
             })
 
     }
 
+    /**
+     * Fetches all the user recipes when the recipe page loads
+     */
     componentDidMount() {
         this.getRecipes();
     }
     render() {
         const redirect = this.state.redirect;
         const recipes = this.state.recipes;
+        const next_page = (this.state.next_page)
+        const prev_page = (this.state.prev_page)
 
         if (redirect) {
             return <Redirect to={{ pathname: '/login' }} />;
