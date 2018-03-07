@@ -6,10 +6,15 @@ import { Panel, Col, FormGroup, FormControl, Button, InputGroup } from 'react-bo
 import { ToastContainer, toast } from 'react-toastify';
 import axiosInstance from '../common/axios-calls';
 
-
+/**
+ * Component that handles user registration
+ */
 class Register extends Component {
     constructor(props) {
         super(props)
+         /**
+         * Sets different states for variables to be used in the component
+         */
         this.state = {
             username: '',
             email: '',
@@ -20,6 +25,9 @@ class Register extends Component {
         }
 
     }
+    /**
+     * Handles the click event genereated by the registration button
+     */
     handleClick(event) {
         let payload = {
             'username': this.state.username,
@@ -33,6 +41,9 @@ class Register extends Component {
             return 0;
         }
 
+        /**
+         * Calls an axios instance to make the call to the API
+         */
         axiosInstance
             .post(`auth/register `, payload)
             .then((response) => {
@@ -51,9 +62,15 @@ class Register extends Component {
     }
 
     render() {
+        /**
+         * Renders the login page on successful registration 
+         * Can only render th registration page if and only if the token 
+         * does not exist in the local storage
+         */
         const redirect = this.state.redirect
-        if (redirect) {
-            return <Redirect to={{ pathname: '/login' }} />
+        const token = window.localStorage.getItem('token');
+        if (redirect || token) {
+            return <Redirect to={{ pathname: '/categories' }} />
         }
         return (
             <div>

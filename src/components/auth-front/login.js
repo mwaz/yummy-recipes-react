@@ -6,6 +6,9 @@ import { Panel, FormGroup, FormControl, Button} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import axiosInstance from '../common/axios-calls';
 
+/**
+ * Component is responsible for user login 
+ */
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -17,11 +20,18 @@ class Login extends Component {
 
         }
     }
+    
     handleClick(event){
+        /**
+        * Takes care of loging functionality when user clicks the login button
+        */
         let payload = {
             'email': this.state.email,
             'password': this.state.password,
         }
+        /**
+         * uses an instance of axios when calling the API
+         */
         axiosInstance
             .post(`/auth/login`, payload)
             .then((response) => {
@@ -35,14 +45,17 @@ class Login extends Component {
             .catch((error) => {
                 if (error.response) {
                     toast.error(error.response.data['message'])
-                    // console.log(error.resposne.data.message)
                 }
             })
     }
     
     render() {
+        /**
+         * Renders the login page and redirects if at all the login details are correct
+         */
         const redirect = this.state.redirect
-        if (redirect) {
+        const token = window.localStorage.getItem('token');
+        if (redirect || token) {
             return <Redirect to={{ pathname: '/categories' }} />
         }
         return (
