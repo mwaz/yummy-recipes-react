@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import BreadCrumbComponent from '../../components/common/Breadcrumb';
+import Private from '../../containers/Private';
 
-
-describe('BreadCrumbComponent component', () => {
-  const wrapper = shallow(<BreadCrumbComponent />);
+describe('Login component', () => {
+  const wrapper = shallow(<Private />);
 
   it('renders properly without crashing', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();

@@ -8,10 +8,10 @@ const Private = ({ component: Values, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-          window.localStorage.getItem('token') ? 
-          (<Values {...props} />) :
-           (<Redirect to={{ pathname: '/login' }} />
+      window.localStorage.getItem('token') ?
+        (<Values {...props} />) :
+        (<Redirect to={{ pathname: '/login' }} />
         ))}
   />
 );
-export default Private
+export default Private;

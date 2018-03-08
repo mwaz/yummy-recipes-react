@@ -47,7 +47,7 @@ export default class NavigationBar extends React.Component {
  * Method to handle modal for password reset 
  */
     handle_password_reset = () => {
-        this.setState({ password_reset_click: true })
+        this.setState({ password_reset_click: true });
     }
 
 /**

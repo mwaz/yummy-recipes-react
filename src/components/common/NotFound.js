@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import Navbar from './navbar'
-import Footer from './footer'
+import React, { Component } from 'react';
+import Navbar from './Navbar';
+import Footer from './Footer';
  
 /**
  * Component to Handle Page not found

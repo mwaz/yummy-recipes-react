@@ -1,14 +1,12 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
-import Footer from '../../components/common/footer';
-import toJson, { shallowToJson } from 'enzyme-to-json';
+import { shallow } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
+import Footer from '../../components/common/Footer';
 
 describe('Footer component', () => {
-    const footer = jest.fn();
-    const wrapper = shallow(<Footer footer={footer} location={{}} />);
-    const preventDefault = jest.fn();
+  const wrapper = shallow(<Footer />);
 
-    it('renders properly without crashing', () => {
-        expect(shallowToJson(wrapper)).toMatchSnapshot();
-    });
+  it('renders properly without crashing', () => {
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+  });
 });

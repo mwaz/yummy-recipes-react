@@ -1,21 +1,19 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
-import SearchForm from '../../components/common/search';
-import toJson, { shallowToJson } from 'enzyme-to-json';
+import { shallow } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
+import SearchForm from '../../components/common/Search';
 
 describe('SearchForm component', () => {
-    const search = jest.fn();
-    const wrapper = shallow(<SearchForm search={search} location={{}} />);
-    const preventDefault = jest.fn();
+  const search = jest.fn();
+  const wrapper = shallow(<SearchForm search={search} location={{}} />);
 
-    it('renders properly without crashing', () => {
-        expect(shallowToJson(wrapper)).toMatchSnapshot();
-    });
+  it('renders properly without crashing', () => {
+    expect(shallowToJson(wrapper)).toMatchSnapshot();
+  });
 
-    it('has clickable button', () => {
-        expect(wrapper.find('Button').length).toBe(1)
-        expect(wrapper.find('Button').simulate('click'))
-    })
+  it('has clickable button', () => {
+    expect(wrapper.find('Button').length).toBe(1);
+    expect(wrapper.find('Button').simulate('click'));
+  });
 });
-
 

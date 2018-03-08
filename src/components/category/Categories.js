@@ -70,7 +70,7 @@ export default class Categories extends Component {
         axiosInstance    
             .post(`/categories/`, payload)
             .then((response) => {
-                toast.success(`created ${response.data['category_name']}  category`)
+                toast.success(`Created ${response.data['category_name']}  category`)
                 this.getCategories();
                 this.setState({ show: false })
 
