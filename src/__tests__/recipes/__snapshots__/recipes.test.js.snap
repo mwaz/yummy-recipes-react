@@ -153,7 +153,7 @@ exports[`Recipes component renders properly without crashing 1`] = `
             cancel_click_state={[Function]}
             modal_header={[Function]}
             modal_title="View Recipe Details"
-            readOnly="readonly=\\""
+            readonly="readonly=\\""
             recipe_ingredients_value=""
             recipe_methods_value=""
             recipe_name_value=""
