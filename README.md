@@ -21,7 +21,7 @@ use npm or yarn
   using npm
 
          
-       $ npm install
+      $ npm install
        
    
    using yarn
