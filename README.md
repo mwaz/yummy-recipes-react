@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Yummy Recipes React Frontend
 Challenge 4: This project involves a react front end implementation of the challenge 3 API that was based on python-flask endpoints. 
 
-Find Heroku App [here](https://yummy-pi.herokuapp.com/)
+Find Heroku App [here](https://yummy-pie.herokuapp.com/)
 
 ## Requirements
 
