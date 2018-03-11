@@ -15,13 +15,13 @@ Find Heroku App [here](https://yummy-pi.herokuapp.com/)
 
 # Installation
 
-1 Clone the Github Repositorty'
+1. Clone the Github Repositorty'
 
 use npm or yarn
   using npm
 
          
-         $ npm install
+       $ npm install
        
    
    using yarn
@@ -30,12 +30,12 @@ use npm or yarn
       $ yarn install
   
 
-2 Run the Application
+2. Run the Application
 
   using npm
 
        
-         $ npm run
+        $ npm run
        
    
   using yarn
@@ -43,7 +43,7 @@ use npm or yarn
         
         $ yarn run
     
-3 Running the Tests
+3. Running the Tests
 
   using npm
 
