@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardComponent component renders properly without crashing 1`] = `
+<Col
+  bsClass="col"
+  componentClass="div"
+  sm={4}
+>
+   
+  <i
+    type="hidden"
+  >
+      
+  </i>
+  <div
+    className="card"
+  >
+    <div
+      className="card-title"
+    />
+    <div
+      className="card-text"
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="success"
+        disabled={false}
+        id="edit"
+        style={
+          Object {
+            "width": "70px",
+          }
+        }
+      >
+        Edit
+      </Button>
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="danger"
+        disabled={false}
+        id="delete"
+        style={
+          Object {
+            "marginLeft": "20px",
+            "width": "70px",
+          }
+        }
+      >
+        Delete
+      </Button>
+    </div>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="info"
+      disabled={false}
+      id="view"
+    />
+  </div>
+</Col>
+`;
