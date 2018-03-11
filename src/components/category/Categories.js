@@ -6,7 +6,7 @@ import axiosInstance from '../common/AxiosInstance';
 import NavigationBar from '../common/NavigationBar';
 import Footer from '../common/Footer';
 import Paginater from '../common/Paginator';
-import ReusableModal from '../common/CategoryEditAddModal';
+import ReusableModal from '../common/ReusableModal';
 import SearchForm from '../common/SearchForm';
 import DeleteComponent from '../common/DeleteComponent';
 import CardComponent from '../common/CardComponent';

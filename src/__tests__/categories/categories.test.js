@@ -2,7 +2,7 @@ import React from 'react';
 import { shallowToJson } from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 import Categories from '../../components/category/Categories';
-import ReusableModal from '../../components/common/CategoryEditAddModal';
+import ReusableModal from '../../components/common/ReusableModal';
 import DeleteComponent from '../../components/common/DeleteComponent';
 import SearchForm from '../../components/common/SearchForm';
 import Paginator from '../../components/common/Paginator';
