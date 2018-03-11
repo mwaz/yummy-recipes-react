@@ -105,18 +105,6 @@ exports[`RecipeModal component renders properly without crashing 1`] = `
         active={false}
         block={false}
         bsClass="btn"
-        bsStyle="success"
-        disabled={false}
-        id="recipe_modal_button"
-        type="submit"
-      >
-         
-         
-      </Button>
-      <Button
-        active={false}
-        block={false}
-        bsClass="btn"
         bsStyle="info"
         disabled={false}
         id="cancel"

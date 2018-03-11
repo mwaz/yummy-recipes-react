@@ -48,6 +48,7 @@ exports[`Categories component renders properly without crashing 1`] = `
           active_item="Categories/"
         />
         <SearchForm
+          clear={[Function]}
           name_change={[Function]}
           search={[Function]}
           search_event={[Function]}
@@ -67,7 +68,6 @@ exports[`Categories component renders properly without crashing 1`] = `
               block={false}
               bsClass="btn"
               bsStyle="info"
-              className="add-categories-btn"
               disabled={false}
               onClick={[Function]}
             >
@@ -82,7 +82,7 @@ exports[`Categories component renders properly without crashing 1`] = `
         <div>
           <ReusableModal
             btn_name="Add Category"
-            category_placeholder=" Category Name "
+            category_placeholder="Category Name"
             category_state="Add Category"
             current_state={[Function]}
             method={[Function]}

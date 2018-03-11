@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, InputGroup, Button} from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 /**
  * Reusable component modal for deleting both categories and recipes
@@ -23,4 +23,4 @@ const DeleteComponent = (props) => {
     </Modal>
   );
 };
-export default DeleteComponent
+export default DeleteComponent;

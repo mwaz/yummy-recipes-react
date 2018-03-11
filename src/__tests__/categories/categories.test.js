@@ -2,9 +2,9 @@ import React from 'react';
 import { shallowToJson } from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 import Categories from '../../components/category/Categories';
-import ReusableModal from '../../components/common/categoryEditAddModal';
-import DeleteComponent from '../../components/common/Delete';
-import SearchForm from '../../components/common/Search';
+import ReusableModal from '../../components/common/CategoryEditAddModal';
+import DeleteComponent from '../../components/common/DeleteComponent';
+import SearchForm from '../../components/common/SearchForm';
 import Paginator from '../../components/common/Paginator';
 
 describe('Categories component', () => {
@@ -49,7 +49,7 @@ describe('Categories component', () => {
 
   it('it calls the search method', () => {
     const component = shallow(<SearchForm />);
-    expect(component.find('#btn-search').simulate('click'));
+    expect(component.find('#mysearch').simulate('click'));
     expect(wrapper.instance().searchCategories({ preventDefault }));
   });
 

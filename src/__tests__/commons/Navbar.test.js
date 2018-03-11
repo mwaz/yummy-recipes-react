@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import Navbar from '../../components/common/Navbar';
+import NavigationBar from '../../components/common/NavigationBar';
 
 describe('Navbar component', () => {
-  const wrapper = shallow(<Navbar />);
+  const wrapper = shallow(<NavigationBar />);
   const preventDefault = jest.fn();
 
   it('renders properly without crashing', () => {

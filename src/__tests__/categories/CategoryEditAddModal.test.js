@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import ReusableModal from '../../components/common/categoryEditAddModal';
+import ReusableModal from '../../components/common/CategoryEditAddModal';
 import Categories from '../../components/category/Categories';
 
 

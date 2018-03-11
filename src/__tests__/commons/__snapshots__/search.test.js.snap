@@ -24,6 +24,7 @@ exports[`SearchForm component renders properly without crashing 1`] = `
       <input
         className="form-control"
         name="search"
+        onChange={[Function]}
       />
     </Col>
     <Col
@@ -37,11 +38,10 @@ exports[`SearchForm component renders properly without crashing 1`] = `
         bsClass="btn"
         bsStyle="info"
         disabled={false}
-        id="btn-search"
-        onClick={[Function]}
+        id="mysearch"
         type="submit"
       >
-        Search 
+         Clear Search 
       </Button>
     </Col>
   </Row>

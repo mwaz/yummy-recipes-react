@@ -14,12 +14,17 @@ const ReusableModal = (props) => {
         <Modal.Body>
           <div className="form-group">
             <label className="col-md-4 control-label" htmlFor="Category_name">
-                Category Name</label>
+                Category Name
+            </label>
             <div className="col-md-8">
 
-              <input type="text" className="form-control" id="new_cat"
-                placeholder={props.category_placeholder} value={props.category_value}
-                onChange={props.onChange} 
+              <input
+                type="text"
+                className="form-control"
+                id="new_cat"
+                placeholder={props.category_placeholder}
+                value={props.category_value}
+                onChange={props.onChange}
               />
 
             </div>
@@ -34,4 +39,4 @@ const ReusableModal = (props) => {
     </Modal>
   );
 };
-export default ReusableModal
+export default ReusableModal;

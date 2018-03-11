@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
@@ -12,13 +12,13 @@ const SearchForm = (props) => {
     <Form onSubmit={props.search_event}>
       <Row style={{ float: 'right' }} >
         <Col sm={8} >
-          <input name="search" className="form-control" placeholder={props.search_placeholder} onChange={props.name_change} />
+          <input name="search" className="form-control" placeholder={props.search_placeholder} onKeyDown={props.name_change} onKeyPress={props.name_change} onChange={props.search} />
         </Col>
         <Col sm={3}>
-          <Button id="mysearch" bsStyle="info" id="btn-search" type="submit" onClick={props.search}>Search </Button>
+          <Button id="mysearch" bsStyle="info" type="submit" onClick={props.clear}> Clear Search </Button>
         </Col>
       </Row>
     </Form>
   );
 };
-export default SearchForm
+export default SearchForm;

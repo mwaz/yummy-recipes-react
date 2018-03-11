@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import BreadCrumbComponent from '../../components/common/Breadcrumb';
+import BreadCrumbComponent from '../../components/common/BreadCrumbComponent';
 
 
 describe('BreadCrumbComponent component', () => {

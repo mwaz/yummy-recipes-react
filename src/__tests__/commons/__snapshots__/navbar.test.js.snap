@@ -59,9 +59,7 @@ exports[`Navbar component renders properly without crashing 1`] = `
               }
             }
             tag="a"
-          >
-            Welcome Guest
-          </NavLink>
+          />
         </NavItem>
         <NavItem
           tag="li"
@@ -204,7 +202,7 @@ exports[`Navbar component renders properly without crashing 1`] = `
             id="password"
             onChange={[Function]}
             placeholder="Password"
-            type="text"
+            type="password"
           />
         </div>
         <label
@@ -221,7 +219,7 @@ exports[`Navbar component renders properly without crashing 1`] = `
             id="cpassword"
             onChange={[Function]}
             placeholder="Confirm Password"
-            type="text"
+            type="password"
           />
         </div>
       </div>

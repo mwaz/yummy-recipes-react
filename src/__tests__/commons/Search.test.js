@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import SearchForm from '../../components/common/Search';
+import SearchForm from '../../components/common/SearchForm';
 
 describe('SearchForm component', () => {
   const search = jest.fn();

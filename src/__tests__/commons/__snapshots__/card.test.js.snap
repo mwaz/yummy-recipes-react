@@ -59,9 +59,8 @@ exports[`CardComponent component renders properly without crashing 1`] = `
       bsClass="btn"
       bsStyle="info"
       disabled={false}
-    >
-        
-    </Button>
+      id="view"
+    />
   </div>
 </Col>
 `;

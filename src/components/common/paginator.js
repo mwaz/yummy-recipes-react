@@ -13,7 +13,7 @@ const Paginator = (props) => {
         <div>
           <Pagination>
             <Button bsStyle="info" id="previous" onClick={props.previous}>Previous </Button>
-              {<div style={{ paddingRight: '10px' }}> </div>}
+            {<div style={{ paddingRight: '10px' }}> </div>}
 
             <Button bsStyle="info" id="next" onClick={props.next} >Next </Button>
           </Pagination>
@@ -22,4 +22,4 @@ const Paginator = (props) => {
     </Row>
   );
 };
-export default Paginator   
+export default Paginator;

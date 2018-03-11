@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Logins component renders properly without crashing 1`] = `
+exports[`Login component renders properly without crashing 1`] = `
 <div>
   <div
     className="background-div"
@@ -58,7 +58,7 @@ exports[`Logins component renders properly without crashing 1`] = `
             className="card-text"
           >
             <Uncontrolled(Panel)
-              header="Login"
+              header="\\"Login\\""
             >
               <FormGroup
                 bsClass="form-group"
@@ -120,7 +120,7 @@ exports[`Logins component renders properly without crashing 1`] = `
 </div>
 `;
 
-exports[`Logins component should login a user 1`] = `
+exports[`Login component should login a user 1`] = `
 <div>
   <div
     className="background-div"
@@ -178,7 +178,7 @@ exports[`Logins component should login a user 1`] = `
             className="card-text"
           >
             <Uncontrolled(Panel)
-              header="Login"
+              header="\\"Login\\""
             >
               <FormGroup
                 bsClass="form-group"
