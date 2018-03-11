@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import ReusableModal from '../../components/common/CategoryEditAddModal';
+import CategoryEditAddModal from '../../components/common/CategoryEditAddModal';
 import Categories from '../../components/category/Categories';
 
 
 describe('ReusableModal component', () => {
-  const wrapper = shallow(<ReusableModal />);
+  const wrapper = shallow(<CategoryEditAddModal />);
 
   it('renders properly without crashing', () => {
     expect(shallowToJson(wrapper)).toMatchSnapshot();
