@@ -36,7 +36,7 @@ class Login extends Component {
       .post('/auth/login', payload)
       .then((response) => {
         window.localStorage.setItem('token', response.data.access_token);
-        window.localStorage.setItem('name', response.data.USER);
+        window.localStorage.setItem('name', response.data.user);
         window.localStorage.setItem('login', 'true');
 
         toast.success(response.data.message);
