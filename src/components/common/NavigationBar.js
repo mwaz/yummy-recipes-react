@@ -170,8 +170,8 @@ export default class NavigationBar extends React.Component {
                     // onClick={this.handlePasswordReset}
                     onClick={(event => this.handleShow(event))}
                   >
-                    {this.password_reset_click ? this.h : null}
-                                Reset Password
+                    {/* {this.password_reset_click ? this.h : null}
+                                Reset Password */}
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
