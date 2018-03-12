@@ -84,16 +84,16 @@ class Register extends Component {
                 <div className="card-text">
                   <Panel header="Register" bsStyle="warning">
                     <FormGroup>
-                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="text" id="username" placeholder="username" name="username" onChange={event => this.setState({ username: event.target.value })} />
+                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="text" id="username" placeholder="Username" name="username" onChange={event => this.setState({ username: event.target.value })} />
                     </FormGroup>
                     <FormGroup>
-                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="email" id="email" placeholder="email" name="email" onChange={event => this.setState({ email: event.target.value })} />
+                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="email" id="email" placeholder="Email" name="email" onChange={event => this.setState({ email: event.target.value })} />
                     </FormGroup>
                     <FormGroup>
                       <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="password" id="password" placeholder="Password" name="password" onChange={event => this.setState({ password: event.target.value })} />
                     </FormGroup>
                     <FormGroup>
-                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="password" id="cpassword" placeholder="confirm Password" name="cpassword" onChange={event => this.setState({ cpassword: event.target.value })} />
+                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="password" id="cpassword" placeholder="Confirm Password" name="cpassword" onChange={event => this.setState({ cpassword: event.target.value })} />
                     </FormGroup>
                     <Button type="submit" bsStyle="success" onClick={(event => this.handleClick(event))}>Register</Button>
                   </Panel>

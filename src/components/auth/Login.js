@@ -71,7 +71,7 @@ class Login extends Component {
                 <div className="card-text">
                   <Panel header='"Login"'>
                     <FormGroup>
-                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="email" id="email" placeholder="email" onChange={event => this.setState({ email: event.target.value })} />
+                      <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="email" id="email" placeholder="Email" onChange={event => this.setState({ email: event.target.value })} />
                     </FormGroup>
                     <FormGroup>
                       <FormControl style={{ backgroundColor: 'white', color: 'black', filter: 'opacity(1)' }} type="password" id="password" placeholder="Password" onChange={event => this.setState({ password: event.target.value })} />
