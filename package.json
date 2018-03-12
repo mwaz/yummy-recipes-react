@@ -3,14 +3,43 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
+    "bootstrap": "^4.0.0",
+    "bootstrap-less": "^3.3.8",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.18.2",
+    "jquery": "^3.3.1",
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-form-validate": "^1.0.3",
+    "react-input-validation": "^1.0.4",
+    "react-js-pagination": "^3.0.1",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0",
+    "react-simple-panels": "^1.0.1",
+    "react-toastify": "^3.3.2",
+    "react-validate-form": "^1.0.6",
+    "reactstrap": "^5.0.0-alpha.4",
+    "sinon": "^4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "add": "^2.0.6",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-test-renderer": "^16.2.0"
   }
 }

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm component renders properly without crashing 1`] = `
+<Form
+  bsClass="form"
+  componentClass="form"
+  horizontal={false}
+  inline={false}
+>
+  <Row
+    bsClass="row"
+    componentClass="div"
+    style={
+      Object {
+        "float": "right",
+      }
+    }
+  >
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={8}
+    >
+      <input
+        className="form-control"
+        name="search"
+        onChange={[Function]}
+      />
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={3}
+    >
+      <Button
+        active={false}
+        block={false}
+        bsClass="btn"
+        bsStyle="info"
+        disabled={false}
+        id="mysearch"
+        type="submit"
+      >
+         Clear Search 
+      </Button>
+    </Col>
+  </Row>
+</Form>
+`;
