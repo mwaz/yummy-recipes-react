@@ -4,7 +4,6 @@ import { shallowToJson } from 'enzyme-to-json';
 import ReusableModal from '../../components/common/ReusableModal';
 import Categories from '../../components/category/Categories';
 
-
 describe('ReusableModal component', () => {
   const wrapper = shallow(<ReusableModal />);
 
@@ -19,7 +18,7 @@ describe('ReusableModal component', () => {
 
   it('test that modal accepts props', () => {
     const category = {
-      category_name: 'category_name',
+      category_name: 'category_name'
     };
     const component = shallow(<Categories category_name={category} />);
     expect(component).toMatchSnapshot();

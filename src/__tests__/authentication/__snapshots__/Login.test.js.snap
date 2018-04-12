@@ -68,7 +68,7 @@ exports[`Login component renders properly without crashing 1`] = `
                   componentClass="input"
                   id="email"
                   onChange={[Function]}
-                  placeholder="email"
+                  placeholder="Email"
                   style={
                     Object {
                       "backgroundColor": "white",
@@ -188,7 +188,7 @@ exports[`Login component should login a user 1`] = `
                   componentClass="input"
                   id="email"
                   onChange={[Function]}
-                  placeholder="email"
+                  placeholder="Email"
                   style={
                     Object {
                       "backgroundColor": "white",

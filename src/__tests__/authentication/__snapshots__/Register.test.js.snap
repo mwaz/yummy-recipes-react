@@ -70,7 +70,7 @@ exports[`Register component renders properly without crashing 1`] = `
                   id="username"
                   name="username"
                   onChange={[Function]}
-                  placeholder="username"
+                  placeholder="Username"
                   style={
                     Object {
                       "backgroundColor": "white",
@@ -90,7 +90,7 @@ exports[`Register component renders properly without crashing 1`] = `
                   id="email"
                   name="email"
                   onChange={[Function]}
-                  placeholder="email"
+                  placeholder="Email"
                   style={
                     Object {
                       "backgroundColor": "white",
@@ -130,7 +130,7 @@ exports[`Register component renders properly without crashing 1`] = `
                   id="cpassword"
                   name="cpassword"
                   onChange={[Function]}
-                  placeholder="confirm Password"
+                  placeholder="Confirm Password"
                   style={
                     Object {
                       "backgroundColor": "white",

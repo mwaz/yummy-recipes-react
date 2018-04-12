@@ -10,12 +10,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
+  DropdownItem
 } from 'reactstrap';
-import {
-  Button,
-  Modal,
-} from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
 import axiosInstance from '../common/AxiosInstance';
@@ -33,7 +30,7 @@ export default class NavigationBar extends React.Component {
       password: '',
       cpassword: '',
       email: '',
-      show: false,
+      show: false
     };
     this.resetPassword = this.resetPassword.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -41,43 +38,42 @@ export default class NavigationBar extends React.Component {
   }
 
   /**
- * Method to handle modal for password reset
- */
+   * Method to handle modal for password reset
+   */
   handlePasswordReset() {
     this.setState({ password_reset_click: true });
   }
 
   /**
- * Toggling the navbar buttons
- */
+   * Toggling the navbar buttons
+   */
   toggle() {
     this.setState({
-      isOpen: !this.state.isOpen,
+      isOpen: !this.state.isOpen
     });
   }
 
   /**
- * Method to handle logging out a user
- */
+   * Method to handle logging out a user
+   */
   handleLogout() {
     axiosInstance
       .post('/auth/logout')
-      .then((response) => {
+      .then(response => {
         toast.success(response.data.message);
         window.localStorage.setItem('login', 'false');
         localStorage.removeItem('token');
         localStorage.removeItem('name');
         this.setState({
-          redirect: true,
+          redirect: true
         });
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.response) {
           toast.error(error.response.data.message);
         }
       });
   }
-
 
   handleShow() {
     this.setState({ show: true });
@@ -88,13 +84,13 @@ export default class NavigationBar extends React.Component {
   }
 
   /**
- * Method to handle reset password
- */
+   * Method to handle reset password
+   */
 
   resetPassword() {
     const payload = {
       reset_password: this.state.password,
-      confirm_password: this.state.cpassword,
+      confirm_password: this.state.cpassword
     };
     if (this.state.password !== this.state.cpassword) {
       toast('Password do not match', { type: toast.TYPE.ERROR });
@@ -102,11 +98,11 @@ export default class NavigationBar extends React.Component {
     }
     axiosInstance
       .put('/auth/password-reset', payload)
-      .then((response) => {
+      .then(response => {
         toast.success(response.data.message);
         this.setState({ show: false });
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.response) {
           toast.error(error.response.data.message);
         }
@@ -125,59 +121,74 @@ export default class NavigationBar extends React.Component {
     }
     return (
       <div className="navigation-bar">
-        <Navbar background-color="transparent" background="transparent" border-color="transparent" dark expand="md" >
+        <Navbar
+          background-color="transparent"
+          background="transparent"
+          border-color="transparent"
+          dark
+          expand="md"
+        >
           <NavbarBrand href="#">Yummy Recipes</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem color="white">
-                <NavLink style={{ color: 'white' }} href="/categories">{username ?
-                            `Welcome ${username}` : '' }
+                <NavLink style={{ color: 'white' }} href="/categories">
+                  {username ? `Welcome ${username}` : ''}
                 </NavLink>
               </NavItem>
               <NavItem>
                 {/* Will only display the login if user is not logged in */}
-                {username ?
-                    '' :
-                    <NavLink style={{ color: 'white' }} href="/login/">
-                                Login
-                    </NavLink>}
+                {!username && (
+                  <NavLink style={{ color: 'white' }} href="/login/">
+                    Login
+                  </NavLink>
+                )}
               </NavItem>
               <NavItem>
                 {/* Will only display the Categories on navbar  if user  is logged in */}
-                {username ?
-                  <NavLink href="/categories" style={{ color: 'white' }}>Categories</NavLink> :
-                ''}
+                {username ? (
+                  <NavLink href="/categories" style={{ color: 'white' }}>
+                    Categories
+                  </NavLink>
+                ) : (
+                  ''
+                )}
               </NavItem>
               <UncontrolledDropdown nav innavbar="true">
                 <DropdownToggle nav caret style={{ color: 'white' }}>
-                            Account
+                  Account
                 </DropdownToggle>
 
-                <DropdownMenu >
+                <DropdownMenu>
                   <DropdownItem divider />
                   {/* Will only display the logout if user is logged in else register */}
-                  {username ?
-                    <DropdownItem id="logout" onClick={(event => this.handleLogout(event))} >
-                                    Logout
-                    </DropdownItem> :
-                    <DropdownItem href="/" >
-                                    Register
+                  {username ? (
+                    <DropdownItem
+                      id="logout"
+                      onClick={event => this.handleLogout(event)}
+                    >
+                      Logout
                     </DropdownItem>
-                  }
+                  ) : (
+                    <DropdownItem href="/">Register</DropdownItem>
+                  )}
 
-                  <DropdownItem
-                    // onClick={this.handlePasswordReset}
-                    onClick={(event => this.handleShow(event))}
-                  >
-                    {/* {this.password_reset_click ? this.h : null}
-                                Reset Password */}
-                  </DropdownItem>
+                  {username ? (
+                    <DropdownItem
+                      // onClick={this.handlePasswordReset}
+                      onClick={event => this.handleShow(event)}
+                    >
+                      {this.password_reset_click ? this.h : null}
+                      Reset Password
+                    </DropdownItem>
+                  ) : (
+                    ' '
+                  )}
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
-
         </Navbar>
         <ToastContainer />
         <Modal
@@ -186,7 +197,7 @@ export default class NavigationBar extends React.Component {
           show={this.state.show}
           onHide={this.handleHide}
         >
-          <Modal.Header >
+          <Modal.Header>
             <Modal.Title> Reset Password </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -203,7 +214,9 @@ export default class NavigationBar extends React.Component {
                   className="form-control"
                   id="password"
                   placeholder="Password"
-                  onChange={event => this.setState({ password: event.target.value })}
+                  onChange={event =>
+                    this.setState({ password: event.target.value })
+                  }
                 />
               </div>
               <label
@@ -218,14 +231,26 @@ export default class NavigationBar extends React.Component {
                   className="form-control"
                   id="cpassword"
                   placeholder="Confirm Password"
-                  onChange={event => this.setState({ cpassword: event.target.value })}
+                  onChange={event =>
+                    this.setState({ cpassword: event.target.value })
+                  }
                 />
               </div>
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button bsStyle="success" type="submit" id="reset" onClick={(event => this.resetPassword(event))} >Reset Password</Button>
-            <Button bsStyle="info" onClick={(event => this.handleHide(event))}> Cancel</Button>
+            <Button
+              bsStyle="success"
+              type="submit"
+              id="reset"
+              onClick={event => this.resetPassword(event)}
+            >
+              Reset Password
+            </Button>
+            <Button bsStyle="info" onClick={event => this.handleHide(event)}>
+              {' '}
+              Cancel
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
