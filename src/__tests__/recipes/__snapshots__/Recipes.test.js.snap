@@ -89,11 +89,13 @@ exports[`Recipes component renders properly without crashing 1`] = `
                 bsClass="btn"
                 bsStyle="success"
                 disabled={false}
-                id="recipe_modal_add"
+                id="recipe_btn"
                 onClick={[Function]}
                 type="submit"
               >
-                 Add Recipe 
+                 
+                Add Recipe
+                 
               </Button>
             }
             cancel_click_state={[Function]}
@@ -129,7 +131,9 @@ exports[`Recipes component renders properly without crashing 1`] = `
                 onClick={[Function]}
                 type="submit"
               >
-                 Update 
+                 
+                Update
+                 
               </Button>
             }
             cancel_click_state={[Function]}
@@ -166,7 +170,8 @@ exports[`Recipes component renders properly without crashing 1`] = `
         <div
           className="alert alert-danger"
         >
-          No recipes found on this land, kindly add them 
+          No recipes found on this land, kindly add them
+           
         </div>
         <Paginator
           next={[Function]}

@@ -6,6 +6,7 @@ import Recipes from '../../components/recipe/Recipes';
 import RecipeModal from '../../components/common/RecipeModal';
 import DeleteComponent from '../../components/common/DeleteComponent';
 import Paginator from '../../components/common/Paginator';
+import CardComponent from '../../components/common/CardComponent';
 
 describe('Recipes component', () => {
   const wrapper = shallow(<Recipes match={{ params: { id: 1 } }} />);
@@ -29,30 +30,31 @@ describe('Recipes component', () => {
     wrapper.setState({
       recipe_name: 'panckakes',
       recipe_ingredients: 'milk, flour',
-      recipe_methods: 'boil till ready',
+      recipe_methods: 'boil till ready'
     });
     expect(wrapper.state().recipe_name).toEqual('panckakes');
     expect(wrapper.state().recipe_ingredients).toEqual('milk, flour');
     expect(wrapper.state().recipe_methods).toEqual('boil till ready');
   });
 
-//   it('it adds a recipe', () => {
-//     const component = shallow(<Recipes />);
-//     expect(component.find('#recipe_modal_add').simulate('click'));
-//     // expect(wrapper.instance().handleAddRecipes({ preventDefault }));
-//   });
+  it('it adds a recipe', () => {
+    const component = shallow(<RecipeModal />);
+    expect(component.find('Button').simulate('click'));
 
-//   it('it edits a recipe', () => {
-//     const component = shallow(<Recipes />);
-//     expect(component.find('#recipe_modal_edit').simulate('click'));
-//     // expect(component.instance().editRecipe({ preventDefault }));
-//   });
+    expect(wrapper.instance().handleAddRecipes({ preventDefault }));
+  });
 
-//   it('it views recipe details', () => {
-//     const component = shallow(<Recipes />);
-//     expect(component.find('#recipe_modal_view').simulate('click'));
-//     // expect(component.instance().getRecipes());
-//   });
+  it('it edits a recipe', () => {
+    const component = shallow(<CardComponent />);
+    expect(component.find('#edit').simulate('click'));
+    expect(wrapper.instance().editRecipe({ preventDefault }));
+  });
+
+  it('it views recipe details', () => {
+    const component = shallow(<CardComponent />);
+    expect(component.find('#view').simulate('click'));
+    expect(wrapper.instance().getRecipes());
+  });
 
   it('it cancels editing a recipe', () => {
     const component = shallow(<RecipeModal />);

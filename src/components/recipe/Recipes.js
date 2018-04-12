@@ -348,9 +348,9 @@ export default class Recipes extends Component {
                   methods_id="methods_name"
                   actionButton={
                     <Button
+                      id="recipe_btn"
                       bsStyle="success"
                       type="submit"
-                      id="recipe_modal_add"
                       onClick={event => this.handleAddRecipes(event)}
                     >
                       {' '}

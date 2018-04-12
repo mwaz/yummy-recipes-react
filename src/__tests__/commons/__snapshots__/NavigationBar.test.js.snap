@@ -242,7 +242,8 @@ exports[`Navbar component renders properly without crashing 1`] = `
         disabled={false}
         onClick={[Function]}
       >
-         Cancel
+         
+        Cancel
       </Button>
     </ModalFooter>
   </Modal>

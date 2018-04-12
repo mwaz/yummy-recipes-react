@@ -235,7 +235,8 @@ ShallowWrapper {
                               <div
                                         className="alert alert-danger"
                               >
-                                        No categories on this land, kindly add them 
+                                        No categories on this land, kindly add them
+                                         
                               </div>
                               <Paginator
                                         next={[Function]}
@@ -390,7 +391,8 @@ ShallowWrapper {
                         <div
                                     className="alert alert-danger"
                         >
-                                    No categories on this land, kindly add them 
+                                    No categories on this land, kindly add them
+                                     
                         </div>
                         <Paginator
                                     next={[Function]}
@@ -501,7 +503,8 @@ ShallowWrapper {
               <div
                             className="alert alert-danger"
               >
-                            No categories on this land, kindly add them 
+                            No categories on this land, kindly add them
+                             
               </div>
               <Paginator
                             next={[Function]}
@@ -609,7 +612,8 @@ ShallowWrapper {
                 <div
                   className="alert alert-danger"
 >
-                  No categories on this land, kindly add them 
+                  No categories on this land, kindly add them
+                   
 </div>,
                 <Paginator
                   next={[Function]}
@@ -874,11 +878,17 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "No categories on this land, kindly add them ",
+                  "children": Array [
+                    "No categories on this land, kindly add them",
+                    " ",
+                  ],
                   "className": "alert alert-danger",
                 },
                 "ref": null,
-                "rendered": "No categories on this land, kindly add them ",
+                "rendered": Array [
+                  "No categories on this land, kindly add them",
+                  " ",
+                ],
                 "type": "div",
               },
               Object {
@@ -1045,7 +1055,8 @@ ShallowWrapper {
                                     <div
                                                 className="alert alert-danger"
                                     >
-                                                No categories on this land, kindly add them 
+                                                No categories on this land, kindly add them
+                                                 
                                     </div>
                                     <Paginator
                                                 next={[Function]}
@@ -1200,7 +1211,8 @@ ShallowWrapper {
                             <div
                                           className="alert alert-danger"
                             >
-                                          No categories on this land, kindly add them 
+                                          No categories on this land, kindly add them
+                                           
                             </div>
                             <Paginator
                                           next={[Function]}
@@ -1311,7 +1323,8 @@ ShallowWrapper {
                 <div
                                 className="alert alert-danger"
                 >
-                                No categories on this land, kindly add them 
+                                No categories on this land, kindly add them
+                                 
                 </div>
                 <Paginator
                                 next={[Function]}
@@ -1419,7 +1432,8 @@ ShallowWrapper {
                   <div
                     className="alert alert-danger"
 >
-                    No categories on this land, kindly add them 
+                    No categories on this land, kindly add them
+                     
 </div>,
                   <Paginator
                     next={[Function]}
@@ -1684,11 +1698,17 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": "No categories on this land, kindly add them ",
+                    "children": Array [
+                      "No categories on this land, kindly add them",
+                      " ",
+                    ],
                     "className": "alert alert-danger",
                   },
                   "ref": null,
-                  "rendered": "No categories on this land, kindly add them ",
+                  "rendered": Array [
+                    "No categories on this land, kindly add them",
+                    " ",
+                  ],
                   "type": "div",
                 },
                 Object {
