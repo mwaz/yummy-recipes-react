@@ -113,7 +113,8 @@ exports[`Categories component renders properly without crashing 1`] = `
         <div
           className="alert alert-danger"
         >
-          No categories on this land, kindly add them 
+          No categories on this land, kindly add them
+           
         </div>
         <Paginator
           next={[Function]}

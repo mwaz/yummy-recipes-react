@@ -25,7 +25,7 @@ describe('Login component', () => {
   it('should login a user', () => {
     wrapper.setState({
       email: 'hey@hey.com',
-      password: '1234567',
+      password: '1234567'
     });
     wrapper.find('Button').simulate('submit', { preventDefault });
     expect(wrapper.instance().handleClick());
@@ -39,8 +39,12 @@ describe('Login component', () => {
 
   it('should respond to change event and change the state of the Login Component', () => {
     const wrapper = shallow(<Login />);
-    wrapper.find('#email').simulate('change', { target: { name: 'email', value: 'hey@sema.com' } });
-    wrapper.find('#password').simulate('change', { target: { name: 'password', value: 'password123456' } });
+    wrapper
+      .find('#email')
+      .simulate('change', { target: { name: 'email', value: 'hey@sema.com' } });
+    wrapper.find('#password').simulate('change', {
+      target: { name: 'password', value: 'password123456' }
+    });
     expect(wrapper.state('email')).toEqual('hey@sema.com');
     expect(wrapper.state('password')).toEqual('password123456');
   });
@@ -49,4 +53,3 @@ describe('Login component', () => {
     expect(wrapper.find(ToastContainer).length).toBe(1);
   });
 });
-

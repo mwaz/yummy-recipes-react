@@ -112,13 +112,7 @@ exports[`Navbar component renders properly without crashing 1`] = `
             >
               Register
             </DropdownItem>
-            <DropdownItem
-              onClick={[Function]}
-              tag="button"
-              toggle={true}
-            >
-              Reset Password
-            </DropdownItem>
+             
           </DropdownMenu>
         </UncontrolledDropdown>
       </Nav>
@@ -248,7 +242,8 @@ exports[`Navbar component renders properly without crashing 1`] = `
         disabled={false}
         onClick={[Function]}
       >
-         Cancel
+         
+        Cancel
       </Button>
     </ModalFooter>
   </Modal>

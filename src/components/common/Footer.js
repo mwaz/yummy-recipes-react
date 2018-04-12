@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Navbar,
-  Nav,
-  NavItem,
-  NavLink,
-} from 'reactstrap';
+import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 /**
  * Footer component
  */
